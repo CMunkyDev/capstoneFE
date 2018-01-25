@@ -22,12 +22,7 @@ export const SAVE_TEMPLATE = 'SAVE_TEMPLATE'
 export const SAVE_TEMPLATE_SUCCESS = 'SAVE_TEMPLATE_SUCCESS'
 export const SAVE_TEMPLATE_FAILURE = 'SAVE_TEMPLATE_FAILURE'
 
-
 export const CHANGE_AUTH_FORM = 'CHANGE_AUTH_FORM'
-
-export const UPDATE_LOGIN_FORM = 'UPDATE_LOGIN_FORM'
-
-export const UPDATE_SIGNUP_FORM = 'UPDATE_SIGNUP_FORM'
 
 export function signupUser (signupForm) {
     const { password } = signupForm
@@ -159,24 +154,6 @@ export function generateTemplate (id, name = 'server') {
             }
         })
     }
-}
-
-export function updateLoginForm (formData) {
-    return dispatch => {
-        dispatch({
-            type: UPDATE_LOGIN_FORM,
-            payload: formData
-        })
-    }
-}
-
-export function updateSignupForm (formData) {
-    console.log('updateSignupFormActionCreator before dispatch')
-    return {
-            type: UPDATE_SIGNUP_FORM,
-            payload: formData
-        }
-    
 }
 
 //==============================================================//

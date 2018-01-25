@@ -12,7 +12,7 @@ class App extends Component {
         <div className = "row header-row">
         </div>
         <div className = "row body-row">
-        <LoginSignupForm />
+        <LoginSignupForm form='signup'/>
         </div>
       </div>
     )

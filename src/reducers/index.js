@@ -26,10 +26,6 @@ import {
     SAVE_TEMPLATE_FAILURE,
 
     CHANGE_AUTH_FORM,
-
-    UPDATE_LOGIN_FORM,
-
-    UPDATE_SIGNUP_FORM,
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -44,16 +40,6 @@ const INITIAL_STATE = {
     auth: {
         currentForm: null,
         loading: false,
-        signupFormData: {
-            email: '',
-            username: '',
-            password: '',
-            passwordMatch: ''
-        },
-        loginFormData: {
-            email: '',
-            password: ''
-        }
     }
 }
 
@@ -67,10 +53,6 @@ function auth (state = INITIAL_STATE.auth, action) {
             return {...state, loading: false}
         case CHANGE_AUTH_FORM:
             return {...state, currentForm: action.payload}
-        case UPDATE_LOGIN_FORM:
-            return {...state, loginFormData: action.payload}
-        case UPDATE_SIGNUP_FORM:
-            return {...state, signupFormData: action.payload}
         default:
             return state
     }
