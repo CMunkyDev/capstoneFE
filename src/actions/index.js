@@ -33,14 +33,15 @@ export function signupUser (signupForm) {
             return res.json()
         })
         .then(json => {
-            let { id, username, email } = json
+            let { id, username, email } = json.users
             let user = { id, username }
             let login = { email, password }
+            console.log('login', login)
             dispatch({
                 type: SIGNUP_USER_SUCCESS,
                 payload: user
             })
-            return loginUser(login)
+            dispatch(loginUser(login))
         })
         .catch(err => {
             dispatch({

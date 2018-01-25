@@ -50,6 +50,7 @@ function auth (state = INITIAL_STATE.auth, action) {
         case LOGIN_USER:
             return {...state, loading: true}
         case LOGIN_USER_SUCCESS:
+        case SIGNUP_USER_SUCCESS:
             return {...state, loading: false}
         case CHANGE_AUTH_FORM:
             return {...state, currentForm: action.payload}
@@ -60,7 +61,8 @@ function auth (state = INITIAL_STATE.auth, action) {
 
 function currentUser (state = INITIAL_STATE.currentUser, action) {
     switch (action.type) {
-        case LOGIN_USER:
+        case UPDATE_CURRENT_USER_SUCCESS:
+        case SIGNUP_USER_SUCCESS:
         case LOGOUT_USER:
             return action.payload
         default:

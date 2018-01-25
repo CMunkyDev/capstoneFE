@@ -8,45 +8,62 @@ import { loginUser, signupUser, updateLoginForm, updateSignupForm } from '../act
 class LoginSignupForm extends Component {
     constructor (props) {
         super(props)
-        this.state = {
-            login: {
-                email: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                },
-                password: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                }
+        this.login = {
+            valid: false,
+            error: '',
+            email: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
             },
-            signup: {
-                email: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                },
-                username: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                },
-                password: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                },
-                passwordMatch: {
-                    value: '',
-                    validationString: '',
-                    validationFunction: '',
-                }
+            password: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
             }
+        }
+
+        this.signup = {
+            valid: false,
+            error: '',
+            email: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
+            },
+            username: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
+            },
+            password: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
+            },
+            passwordMatch: {
+                value: '',
+                validationString: '',
+                validationFunction: '',
+            }
+        }
+        this.state = {
+            form: this.props.form,
+            login: this.login,
+            signup: this.signup
 
         }
 
         
+    }
+
+    extractInputs = (form) => {
+        let inputArr = []
+        for (let i = 0; i < form.children.length; i++) {
+            inputArr = inputArr.concat(form.children[i].tagName == 'INPUT' ? form.children[i] : [])
+            inputArr = inputArr.concat(this.extractInputs(form.children[i]))
+        }
+        return inputArr
     }
 
     handleChange = (validationFunction) => {
@@ -54,10 +71,17 @@ class LoginSignupForm extends Component {
             event.persist()
             let stateKey = event.target.name
             let stateParent = event.target.form.id
-            console.log(stateParent, stateKey, 'value: ', event.target.value)
+            let valid = true
+            let inputs = this.extractInputs(event.target.form)
+            for (let input in inputs) {
+                if (this.state[stateParent][inputs[input].name].validationString || !inputs[input].value) {
+                    valid = false
+                    break
+                }
+            }
             this.setState(prev => {
                 let newValidationString = validationFunction ? validationFunction(event.target.value) : prev[stateParent][stateKey].validationString
-                return { ...prev, [stateParent]: { ...prev[stateParent], [stateKey]: { ...prev[stateParent][stateKey], value: event.target.value, validationString: newValidationString } } }
+                return { ...prev, [stateParent]: { ...prev[stateParent], valid, [stateKey]: { ...prev[stateParent][stateKey], value: event.target.value, validationString: newValidationString } } }
             })
         }
     }
@@ -73,7 +97,7 @@ class LoginSignupForm extends Component {
                     name='email'
                     iconPosition='left'
                     placeholder='E-mail address'
-                    onChange={this.loginFormUpdateCallback}
+                    onChange={this.handleChange()}
                 />
                 <Form.Input
                     fluid
@@ -82,14 +106,13 @@ class LoginSignupForm extends Component {
                     iconPosition='left'
                     placeholder='Password'
                     type='password'
-                    onChange={this.loginFormUpdateCallback}
+                    onChange={this.handleChange()}
                 />
-
-                <Button color='teal' fluid size='large'>Login</Button>
+                <Button disabled={!this.state.login.valid} loading={this.props.auth.loading ? true : false} onClick={this.props.auth.loading ? () => {} : this.loginCallback()}color='teal' fluid size='large'>Login</Button>
             </Segment>
         </Form>
 
-        this.signupInputs = <Form size='large' id='signup'>
+    this.signupInputs = <Form size='large' id='signup'>
             <Segment stacked>
                 <Form.Input
                     fluid
@@ -130,10 +153,13 @@ class LoginSignupForm extends Component {
                     onChange={this.handleChange()}
                 />
 
-                <Button color='teal' fluid size='large'>Sign-Up</Button>
+                <Button disabled={!this.state.signup.valid} loading={this.props.auth.loading ? true : false} color='teal' fluid size='large' onClick={this.props.auth.loading ? () => {} : this.signupCallback()}>Sign-Up</Button>
             </Segment>
+            <Message error={true}>
+            {/*Insert Error Messages Here*/}
+            </Message>
         </Form>
-        
+
         return (
         <div className={`${this.props.form}-form`}>
             {/*
@@ -158,18 +184,49 @@ class LoginSignupForm extends Component {
                         {/*<Image src='/logo.png' />*/}
                         {' '}{this.props.form === 'login' ? 'Log-in to your account' : 'Sign-up for an account'}
                     </Header>
-                    <div>
                         {this.props.form === 'login' ? this.loginInputs : this.signupInputs}
-                    </div>
                     <Message>
-                {this.props.form === 'login' ? <div>New to us? <a href='#'>Sign Up</a></div> : <div>Already have an account? <a href='#'>Log In</a></div>}
+                        {this.props.form === 'login' ? <div>New to us? <a href='#'>Sign Up</a></div> : <div>Already have an account? <a href='#'>Log In</a></div>}
                     </Message>
                 </Grid.Column>
             </Grid>
         </div>
         )
     }
+
+    loginCallback = () => {
+        return e => {
+            if (!this.state[e.target.form.id].valid) {
+                this.setState(prev => ({ ...prev, [e.target.form.id]: { ...prev[e.target.form.id], error: 'All fields are required' } }))
+            }
+            let { password, email } = e.target.form
+            password = password.value
+            email = email.value
+            let formData = { email, password }
+            this.props.loginUser(formData)
+            this.setState(prev => ({...prev, login: this.login}))
+        }
+    }
+
+    signupCallback = () => {
+        return e => {
+            if (!this.state[e.target.form.id].valid) {
+                this.setState(prev => ({...prev, [e.target.form.id]: {...prev[e.target.form.id], error:'All fields are required'}}))
+            }
+            let { email, username, password } = e.target.form
+            email = email.value
+            username = username.value
+            password = password.value
+            let formData = { email, username, password }
+            console.log('getHERER')
+            this.props.signupUser(formData)
+            this.setState(prev => ({ ...prev, signup: this.signup }))
+        }
+    }
 }
+
+
+
 
 function mapStateToProps(state) {
     return { auth: state.auth }
