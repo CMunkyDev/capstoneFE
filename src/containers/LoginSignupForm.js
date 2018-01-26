@@ -161,7 +161,7 @@ class LoginSignupForm extends Component {
         </Form>
 
         return (
-        <div className={`${this.props.form}-form`}>
+            <div className={`${this.props.form}-form`} style={{ backgroundColor: '#d4f4f2', height: '100vh'}}>
             {/*
                 Heads up! The styles below are necessary for the correct render of this example.
                 You can do same with CSS, the main idea is that all the elements up to the `Grid`
@@ -186,7 +186,7 @@ class LoginSignupForm extends Component {
                     </Header>
                         {this.props.form === 'login' ? this.loginInputs : this.signupInputs}
                     <Message>
-                        {this.props.form === 'login' ? <div>New to us? <a href='#'>Sign Up</a></div> : <div>Already have an account? <a href='#'>Log In</a></div>}
+                            {this.props.form === 'login' ? <div>New to us? <a href='/signup'>Sign Up</a>  or <a href='/'>Go Back</a></div> : <div>Already have an account? <a href='/login'>Log In</a>  or <a href='/'>Go Back</a></div>}
                     </Message>
                 </Grid.Column>
             </Grid>
@@ -218,7 +218,6 @@ class LoginSignupForm extends Component {
             username = username.value
             password = password.value
             let formData = { email, username, password }
-            console.log('getHERER')
             this.props.signupUser(formData)
             this.setState(prev => ({ ...prev, signup: this.signup }))
         }
