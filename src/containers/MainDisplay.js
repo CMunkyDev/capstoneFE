@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
-//import TemplateMaker from '../containers/TemplateMaker'
+import TemplateMaker from './main_display/TemplateMaker'
+
 import {
     Button,
     Container,
@@ -39,18 +40,26 @@ const steps = [
 ]
 const MainPage = ({}) => {
     return (
-        <div>
-            <Container fluid>
-                <FixedMenu />
-            </Container>
-            <Container fluid>
-                <BrowserRouter>
-                    <Switch>
-                        <Route path='/create' render={() => <div>LOL</div>}/>
-                    </Switch>
-                </BrowserRouter>
-            </Container>
-        </div>
+        <Grid style={{height: '100vh'}} color='teal' stretched>
+            <Grid.Row color='blue' >
+                <Grid.Column width={16}>
+                    <FixedMenu />
+                </Grid.Column>
+            </Grid.Row>
+            <Grid.Row color='blue' style={{height: '5vh'}} />
+            <Grid.Row color='blue' style={{height: '90vh'}}>
+                <Grid.Column width={2}/>
+                <Grid.Column width={12} style={{borderRadius: '5px'}}>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path='/create' render={() => <TemplateMaker />} />
+                        </Switch>
+                    </BrowserRouter>
+                </Grid.Column>
+                <Grid.Column width={2}/>
+            </Grid.Row >
+            <Grid.Row color='blue'/>
+        </Grid>
     )
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { loginUser, signupUser, updateLoginForm, updateSignupForm } from '../actions'
@@ -186,7 +187,7 @@ class LoginSignupForm extends Component {
                     </Header>
                         {this.props.form === 'login' ? this.loginInputs : this.signupInputs}
                     <Message>
-                            {this.props.form === 'login' ? <div>New to us? <a href='/signup'>Sign Up</a>  or <a href='/'>Go Back</a></div> : <div>Already have an account? <a href='/login'>Log In</a>  or <a href='/'>Go Back</a></div>}
+                            {this.props.form === 'login' ? <div>New to us? <a href='/signup'>Sign Up</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div> : <div>Already have an account? <a href='/login'>Log In</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div>}
                     </Message>
                 </Grid.Column>
             </Grid>
@@ -234,4 +235,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ loginUser, signupUser }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginSignupForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginSignupForm))

@@ -29,13 +29,14 @@ import {
 } from '../actions'
 
 const INITIAL_STATE = {
+    lastView: '/',
     currentUser: {
         id: null,
         username: null
     },
     currentTemplate: {
-        id: 1,
-        name: 'herpderp'
+        id: null,
+        name: null
     },
     auth: {
         currentForm: null,

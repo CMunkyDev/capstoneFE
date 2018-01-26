@@ -4,7 +4,7 @@ import CurrentUser from '../containers/CurrentUser'
 import SaveAndDownloadButton from '../containers/SaveAndDownloadButton'
 import LoginSignupForm from '../containers/LoginSignupForm'
 import MainDisplay from '../containers/MainDisplay'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link, withRouter } from 'react-router-dom'
 
 
 class App extends Component {
@@ -34,4 +34,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

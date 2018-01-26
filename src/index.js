@@ -11,6 +11,8 @@ import { createStore, applyMiddleware } from 'redux'
 import App from './components/App';
 import reducers from './reducers'
 
+import { Route, BrowserRouter } from 'react-router-dom'
+
 const store = createStore(
     reducers,
     applyMiddleware(
@@ -19,9 +21,13 @@ const store = createStore(
     )
 )
 
+
 ReactDOM.render(
+    
     <Provider store={store}>
-        <App />
+        <BrowserRouter >
+            <Route path='/' component={App} />
+        </BrowserRouter>
     </Provider>
 , document.getElementById('root'));
 
