@@ -31,7 +31,7 @@ import {
 const INITIAL_STATE = {
     lastView: '/',
     currentUser: {
-        id: null,
+        id: 1,
         username: null
     },
     currentTemplate: {
