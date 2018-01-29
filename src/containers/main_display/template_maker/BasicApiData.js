@@ -11,7 +11,6 @@ const BasicApiData = (props) => {
                 <Grid container>
                     <Grid.Column width={12}>
                         <Segment>
-                            <Form.Input label='API Name' />
                             <Segment attached='top' clearing>
                                 <Header floated='left' >
                                     Resources
@@ -24,7 +23,7 @@ const BasicApiData = (props) => {
                                 {
                                     !props.template.resources.length ? 'Add A Resource' :
                                     props.template.resources.map((resource, index) => {
-                                            return <Form.Input placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
+                                            return <Form.Input key={index} placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
                                     })
                                 }
                             </Segment>

@@ -13,7 +13,7 @@ class TemplateMaker extends Component {
 
         this.emptyTemplate = {
             name: ``,
-            resources: [this.emptyResource]
+            resources: []
         }
         this.emptyResource = {
             name: ``,
