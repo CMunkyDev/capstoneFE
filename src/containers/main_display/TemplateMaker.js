@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, Grid } from 'semantic-ui-react'
+import { Container, Grid, Menu, Button } from 'semantic-ui-react'
 import NotLoggedIn from './template_maker/NotLoggedIn'
 import BasicApiData from './template_maker/BasicApiData'
+import Routes from './template_maker/Routes'
 
 
 class TemplateMaker extends Component {
@@ -25,6 +26,7 @@ class TemplateMaker extends Component {
 
         this.state = {
             page: 0,
+            pages: 3,
             template: (this.props.TemplateData ? this.props.TemplateData : this.props.currentTemplate ? {} /*grab from database*/ : this.emptyTemplate)
         }
 
@@ -32,16 +34,44 @@ class TemplateMaker extends Component {
             addResource: this.addResource.bind(this),
             removeResource: this.removeResource.bind(this),
             addRoute: this.addRoute.bind(this),
-            removeRoute: this.removeRoute.bind(this)
+            removeRoute: this.removeRoute.bind(this),
+            nextPage: this.nextPage.bind(this),
+            prevPage: this.prevPage.bind(this),
+            currentPageNum: this.currentPageNum.bind(this),
+            maxPageNum: this.maxPageNum.bind(this)
         }
 
+    }
+
+    nextPage = () => {
+        if (this.state.page < this.state.pages - 1) {
+            this.setState(prev => {
+                return {...prev, page: prev.page + 1}
+            })
+        } 
+    }
+
+    prevPage = () => {
+        if (this.state.page > 0) {
+            this.setState(prev => {
+                return {...prev, page:prev.page - 1}
+            })
+        }
+    }
+
+    currentPageNum = () => {
+        return this.state.page
+    }
+
+    maxPageNum = () => {
+        return this.state.pages - 1
     }
 
     getCurrentPage () {
         let pages = [
             { name: 'API Basics', hash: 'basics', component: <BasicApiData template={this.state.template} templateFunctions={this.templateFunctions} /> },
-            { name: 'Resources', hash: 'resources', component: <div >PAGE 1</div> },
-            { name: 'Routes', hash: 'routes', component: <div>PAGE 2</div> }
+            { name: 'Routes', hash: 'routes', component: <Routes template={this.state.template} templateFunctions={this.templateFunctions} /> },
+            { name: 'Extra', hash: 'routes', component: <div>PAGE 2</div> }
         ]
 
         return pages[this.state.page]
@@ -49,7 +79,7 @@ class TemplateMaker extends Component {
 
     addResource () {
         this.setState(prev => {
-            return {...prev, template: {...prev.template, resources: [...prev.template.resources, this.emptyResource]}}
+            return {...prev, template: {...prev.template, resources: [...prev.template.resources, {...this.emptyResource}]}}
         })
     }
 
@@ -100,9 +130,21 @@ class TemplateMaker extends Component {
 
     render () {
         return (
-            <Grid container>
-                {this.props.currentUser.id ? this.getCurrentPage().component : <NotLoggedIn />}
-            </Grid>
+            <div>
+                <Grid container>
+                    {this.props.currentUser.id ? this.getCurrentPage().component : <NotLoggedIn />}
+                    <Menu secondary widths={3} size='large'>
+                        <Container fluid>
+                            <Menu.Item position='left'>
+                                <Button fluid onClick={this.prevPage}>Previous</Button>
+                            </Menu.Item>
+                            <Menu.Item position='right'>
+                                <Button fluid onClick={this.nextPage}>Next</Button>
+                            </Menu.Item>
+                        </Container>
+                    </Menu>
+                </Grid>
+            </div>
         )
     }
 }

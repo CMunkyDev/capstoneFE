@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, Grid, Form, Header, Segment, Button, Icon} from 'semantic-ui-react'
+import { Container, Grid, Form, Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 const BasicApiData = (props) => {
     console.log(props)
@@ -11,21 +11,20 @@ const BasicApiData = (props) => {
                 <Grid container>
                     <Grid.Column width={12}>
                         <Segment>
-                            <Form.Input label='API Name' />
                             <Segment attached='top' clearing>
                                 <Header floated='left' >
-                                    Resources
+                                    Routes
                                 </Header>
                                 <Button color='blue' icon floated='right' onClick={props.templateFunctions.addResource}>
-                                    <Icon name='add'/>
+                                    <Icon name='add' />
                                 </Button>
                             </Segment>
                             <Segment attached>
                                 {
                                     !props.template.resources.length ? 'Add A Resource' :
-                                    props.template.resources.map((resource, index) => {
-                                            return <Form.Input placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
-                                    })
+                                        props.template.resources.map((resource, index) => {
+                                            return <Form.Input placeholder='Route Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>} />
+                                        })
                                 }
                             </Segment>
                         </Segment>
@@ -35,6 +34,7 @@ const BasicApiData = (props) => {
                     </Grid.Column>
                 </Grid>
             </Form>
+
         </Container>
     )
 }
