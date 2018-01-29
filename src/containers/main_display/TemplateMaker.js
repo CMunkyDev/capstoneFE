@@ -38,7 +38,9 @@ class TemplateMaker extends Component {
             nextPage: this.nextPage.bind(this),
             prevPage: this.prevPage.bind(this),
             currentPageNum: this.currentPageNum.bind(this),
-            maxPageNum: this.maxPageNum.bind(this)
+            maxPageNum: this.maxPageNum.bind(this),
+            alterResourceKeys: this.alterResourceKeys.bind(this),
+            alterRouteKeys: this.alterRouteKeys.bind(this)
         }
 
     }
@@ -77,7 +79,23 @@ class TemplateMaker extends Component {
         return pages[this.state.page]
     }
 
-    addResource () {
+    alterResourceKeys (resourceIndex, updatedResourceData) {
+        this.setState(prev => {
+            return {
+                ...prev,
+                template: {
+                    ...prev.template,
+                    resources: prev.template.resources.map((resource, index) => {
+                        if (index === resourceIndex) return Object.assign({}, resource, updatedResourceData)
+                        return resource
+                    })
+                }
+            }
+        })
+    }
+
+    addResource (resourceObj = this.emptyResource) {
+        let newResource = Object.assign({}, this.emptyResource, resourceObj)
         this.setState(prev => {
             return {...prev, template: {...prev.template, resources: [...prev.template.resources, {...this.emptyResource}]}}
         })
@@ -96,14 +114,34 @@ class TemplateMaker extends Component {
         })
     }
 
+    alterRouteKeys (resourceIndex, routeIndex, updatedRouteData) {
+        this.setState(prev => {
+            return {
+                ...prev,
+                template: {
+                    ...prev.template,
+                    resources: prev.template.resources.map((resource, index) => {
+                        if (index === resourceIndex) {
+                            return { ...resource, routes: resource.routes.map((route, index) => {
+                                if (index === routeIndex) return Object.assign({}, route, updatedRouteData)
+                                return route
+                            }) }
+                        }
+                        return resource
+                    })
+                }
+            }
+        })
+    }
     //PROBABLY SHOULD DEEP COPY INSTEAD OF THIS
-    addRoute (resourceIndex) {
+    addRoute (resourceIndex, routeObj = this.emptyRoute) {
+        let newRoute = Object.assign({}, this.emptyRoute, routeObj)
         this.setState(prev => {
             return {
                 ...prev,
                 template: { ...prev.template,
                     resources: prev.template.resources.map((resource, index) => {
-                        if (index === resourceIndex) return {...resource, routes: [...resource.routes, this.emptyRoute]}
+                        if (index === resourceIndex) return {...resource, routes: [...resource.routes, newRoute]}
                         return resource
                     })
                 }

@@ -15,22 +15,17 @@ const BasicApiData = (props) => {
                                 return (
                                     <div key={resourceIndex}>
                                         <Segment attached='top' clearing>
-                                            <Header floated='left' >
+                                            <Header>
                                                 {props.template.resources[resourceIndex].name}
                                             </Header>
-                                            <Button color='blue' icon floated='right' onClick={() => props.templateFunctions.addRoute(resourceIndex)}>
-                                                <Icon name='add' />
-                                            </Button>
                                         </Segment>
-                                        <Segment attached>
-                                            <Button as='checkbox' >OK</Button>
-                                            {
-                                                !props.template.resources[resourceIndex].routes.length ? 'Add a Route' :
-                                                props.template.resources[resourceIndex].routes.map((route, routeIndex) => {
-                                                    return <Form.Input key={`${resourceIndex}_${routeIndex}`}placeholder='Route Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeRoute(resourceIndex, routeIndex)}>Remove</Button>} />
-                                                })
-                                            }
-                                        </Segment>
+                                        <Button.Group color='orange' attached='bottom' fluid>
+                                            <Button>Get One</Button>
+                                            <Button>Get All</Button>
+                                            <Button>Create</Button>
+                                            <Button>Update</Button>
+                                            <Button>Delete</Button>
+                                        </Button.Group>
                                     </div>
                                 )
                             })}
