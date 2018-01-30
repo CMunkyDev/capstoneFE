@@ -73,6 +73,8 @@ function currentUser (state = INITIAL_STATE.currentUser, action) {
 
 function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
     switch (action.type) {
+        case SAVE_TEMPLATE_SUCCESS:
+            return action.payload.template_object
         case GENERATE_TEMPLATE_SUCCESS:
             FileSaver.saveAs(action.payload.zip, `${action.payload.name}.zip`)
             return state

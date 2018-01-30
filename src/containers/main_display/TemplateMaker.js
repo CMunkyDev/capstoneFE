@@ -5,11 +5,35 @@ import { Container, Grid, Menu, Button } from 'semantic-ui-react'
 import NotLoggedIn from './template_maker/NotLoggedIn'
 import BasicApiData from './template_maker/BasicApiData'
 import Routes from './template_maker/Routes'
+import Finish from './template_maker/Finish'
 
 
 class TemplateMaker extends Component {
     constructor (props) {
         super(props)
+
+        let routes = [
+            {
+                name: 'show',
+                method: 'GET'
+            },
+            {
+                name: 'index',
+                method: 'GET'
+            },
+            {
+                name: 'create',
+                method: 'POST'
+            },
+            {
+                name: 'update',
+                method: 'PATCH'
+            },
+            {
+                name: 'delete',
+                method: 'DELETE'
+            }
+        ]
 
         this.emptyTemplate = {
             name: ``,
@@ -17,7 +41,7 @@ class TemplateMaker extends Component {
         }
         this.emptyResource = {
             name: ``,
-            routes: []
+            routes
         }
         this.emptyRoute = {
             name: '',
@@ -39,8 +63,9 @@ class TemplateMaker extends Component {
             prevPage: this.prevPage.bind(this),
             currentPageNum: this.currentPageNum.bind(this),
             maxPageNum: this.maxPageNum.bind(this),
-            alterResourceKeys: this.alterResourceKeys.bind(this),
-            alterRouteKeys: this.alterRouteKeys.bind(this)
+            alterResourceData: this.alterResourceData.bind(this),
+            alterRouteData: this.alterRouteData.bind(this),
+            alterApiName: this.alterApiName.bind(this)
         }
 
     }
@@ -73,13 +98,13 @@ class TemplateMaker extends Component {
         let pages = [
             { name: 'API Basics', hash: 'basics', component: <BasicApiData template={this.state.template} templateFunctions={this.templateFunctions} /> },
             { name: 'Routes', hash: 'routes', component: <Routes template={this.state.template} templateFunctions={this.templateFunctions} /> },
-            { name: 'Extra', hash: 'routes', component: <div>PAGE 2</div> }
+            { name: 'Extra', hash: 'routes', component: <Finish template={this.state.template} templateFunctions={this.templateFunctions} /> }
         ]
 
         return pages[this.state.page]
     }
 
-    alterResourceKeys (resourceIndex, updatedResourceData) {
+    alterResourceData (resourceIndex, updatedResourceData) {
         this.setState(prev => {
             return {
                 ...prev,
@@ -114,7 +139,7 @@ class TemplateMaker extends Component {
         })
     }
 
-    alterRouteKeys (resourceIndex, routeIndex, updatedRouteData) {
+    alterRouteData (resourceIndex, routeIndex, updatedRouteData) {
         this.setState(prev => {
             return {
                 ...prev,
@@ -149,7 +174,7 @@ class TemplateMaker extends Component {
         })
     }
 
-    removeRoute (resourceIndex, routeIndex) {
+    removeRoute (resourceIndex, routeName) {
         this.setState(prev => {
             return {
                 ...prev,
@@ -157,12 +182,18 @@ class TemplateMaker extends Component {
                     ...prev.template,
                     resources: prev.template.resources.map((resource, index) => {
                         if (index === resourceIndex) {
-                            return { ...resource, routes: resource.routes.filter((route, index) => index !== routeIndex) }
+                            return { ...resource, routes: resource.routes.filter(route => route.name !== routeName) }
                         }
                         return resource
                     })
                 }
             }
+        })
+    }
+
+    alterApiName (newName) {
+        this.setState(prev => {
+            return {...prev, template: {...prev.template, name: newName}}
         })
     }
 
