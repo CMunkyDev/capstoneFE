@@ -129,12 +129,7 @@ export function logoutUser () {
 
 export function saveTemplate (templateObject) {
     return async (dispatch) => {
-        const res = await request(`/api/templates`, 'POST', {
-            headers: {
-                authorization: localStorage.getItem('api_dev_token')
-            },
-            body: templateObject
-        })
+        const res = await request(`/api/templates`, 'POST', templateObject)
         const json = await res.json()
 
         dispatch({

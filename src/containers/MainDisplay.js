@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import TemplateMaker from './main_display/TemplateMaker'
+import TemplateList from './main_display/TemplateList'
 
 import {
     Button,
@@ -49,6 +50,7 @@ const MainPage = ({}) => {
                     <BrowserRouter>
                         <Switch>
                             <Route path='/create' render={() => <TemplateMaker />} />
+                            <Route path='/user' render={() => <TemplateList />} />
                         </Switch>
                     </BrowserRouter>
                 </Grid.Column>
