@@ -14,7 +14,7 @@ class TemplateList extends Component {
         super(props)
         
         this.state = {
-            expandedTemplates: [1]
+            expandedTemplates: []
         }
     }
     componentDidMount () {
