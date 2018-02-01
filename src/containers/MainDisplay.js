@@ -37,14 +37,14 @@ const FixedMenu = () => (
 
 const MainPage = ({}) => {
     return (
-        <Grid style={{height: '100vh'}} color='teal' stretched>
+        <Grid color='teal' stretched>
             <Grid.Row color='blue' >
                 <Grid.Column width={16}>
                     <FixedMenu />
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row color='blue' style={{height: '5vh'}} />
-            <Grid.Row color='blue' style={{height: '90vh'}}>
+            <Grid.Row color='blue' style={{height: '5vh'}}/>
+            <Grid.Row color='blue' style={{minHeight: '90vh'}}>
                 <Grid.Column width={2}/>
                 <Grid.Column width={12} style={{borderRadius: '5px'}}>
                     <BrowserRouter>

@@ -14,7 +14,7 @@ class TemplateList extends Component {
         super(props)
         
         this.state = {
-            expandedTemplates: []
+            expandedTemplates: [1]
         }
     }
     componentDidMount () {
@@ -24,23 +24,25 @@ class TemplateList extends Component {
         }
     }
 
-    expandRow (templateId) {
-        this.setState(prev => ({...prev, expandedTemplates: [...prev.expandedTemplates, templateId]}))
+    toggleRow (templateId) {
+        if (this.state.expandedTemplates.includes(templateId)) {
+            this.setState(prev => ({ ...prev, expandedTemplates: prev.expandedTemplates.filter(id => id != templateId)}))
+        } else {
+            this.setState(prev => ({ ...prev, expandedTemplates: [...prev.expandedTemplates, templateId] }))
+        }
     }
 
     render () {
         return (
             <Grid container>
                 <Grid.Row>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={16}>
                         <Grid.Row>
                             <SortBar />
                         </Grid.Row>
                         <Grid padded>
-                        {this.props.userTemplates.map((template, i) => <TemplateRow key={i} template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
+                        {this.props.userTemplates.map((template, i) => <TemplateRow key={i} toggleRow={this.toggleRow.bind(this)}template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
                         </Grid>
-                    </Grid.Column>
-                    <Grid.Column width={4}>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
