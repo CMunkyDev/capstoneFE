@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Container, Grid, Menu, Button } from 'semantic-ui-react'
 import TemplateRow from './template_list/TemplateRow'
 import SortBar from './template_list/SortBar'
+import { getUserTemplates, updateCurrentUser } from '../../actions'
 
 
 
@@ -11,8 +12,15 @@ import SortBar from './template_list/SortBar'
 class TemplateList extends Component {
     constructor (props) {
         super(props)
+        
         this.state = {
             expandedTemplates: []
+        }
+    }
+    componentDidMount () {
+        this.props.updateCurrentUser()
+        if (this.props.currentUser.id){
+            this.props.getUserTemplates(this.props.currentUser.id)
         }
     }
 
@@ -28,7 +36,9 @@ class TemplateList extends Component {
                         <Grid.Row>
                             <SortBar />
                         </Grid.Row>
-                        {Array(90).fill(<TemplateRow expanded={false}/>)}
+                        <Grid padded>
+                        {this.props.userTemplates.map((template, i) => <TemplateRow key={i} template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
+                        </Grid>
                     </Grid.Column>
                     <Grid.Column width={4}>
                     </Grid.Column>
@@ -39,10 +49,10 @@ class TemplateList extends Component {
 }
 
 function mapStateToProps(state) {
-    return { currentUser: state.currentUser }
+    return { userTemplates: state.userTemplates, currentUser: state.currentUser }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({ updateCurrentUser, getUserTemplates }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateList)

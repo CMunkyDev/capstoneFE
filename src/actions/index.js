@@ -2,6 +2,10 @@ export const SIGNUP_USER = 'SIGNUP_USER'
 export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS'
 export const SIGNUP_USER_FAILURE = 'SIGNUP_USER_FAILURE'
 
+export const RETRIEVE_USER_TEMPLATES = 'RETRIEVE_USER_TEMPLATES'
+export const RETRIEVE_USER_TEMPLATES_SUCCESS = 'RETRIEVE_USER_TEMPLATES_SUCCESS'
+export const RETRIEVE_USER_TEMPLATES_FAILURE = 'RETRIEVE_USER_TEMPLATES_FAILURE'
+
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE'
@@ -86,14 +90,17 @@ export function updateCurrentUser () {
                 return res.json()
             })
             .then(json => {
-                const { id, username } = json
+                const { id, username } = json.currentUser
                 const user = { id, username }
 
                 dispatch({
                     type: UPDATE_CURRENT_USER_SUCCESS,
                     payload: user
                 })
+
+                return id
             })
+            .then(id => dispatch(getUserTemplates(id)))
             .catch(err => {
                 dispatch({
                     type: UPDATE_CURRENT_USER_FAILURE,
@@ -142,10 +149,7 @@ export function saveTemplate (templateObject) {
 
 export function generateTemplate (id, name = 'server') {
     return async (dispatch) => {
-        console.log(id, name)
-        console.log('api: ', process.env.REACT_APP_API_URL)
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/templates/${id}/zip`)
-        console.log(res)
         const blob = await res.blob()
 
         dispatch({
@@ -155,6 +159,29 @@ export function generateTemplate (id, name = 'server') {
                 name
             }
         })
+    }
+}
+
+export function getUserTemplates (userId) {
+    return async (dispatch) => {
+        dispatch({ type: RETRIEVE_USER_TEMPLATES })
+        return request(`/api/users/${userId}/templates`)
+            .then(res => {
+                return res.json()
+            })
+            .then(json => {
+                console.log(json)
+                dispatch({
+                    type: RETRIEVE_USER_TEMPLATES_SUCCESS,
+                    payload: json
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: RETRIEVE_USER_TEMPLATES_FAILURE,
+                    payload: err
+                })
+            })
     }
 }
 

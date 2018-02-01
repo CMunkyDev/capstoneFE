@@ -25,6 +25,10 @@ import {
     SAVE_TEMPLATE_SUCCESS,
     SAVE_TEMPLATE_FAILURE,
 
+    RETRIEVE_USER_TEMPLATES,
+    RETRIEVE_USER_TEMPLATES_SUCCESS,
+    RETRIEVE_USER_TEMPLATES_FAILURE,
+
     CHANGE_AUTH_FORM,
 } from '../actions'
 
@@ -32,8 +36,9 @@ const INITIAL_STATE = {
     lastView: '/',
     currentUser: {
         id: 1,
-        username: null
+        username: null,
     },
+    userTemplates: [],
     currentTemplate: {
         id: null,
         name: null
@@ -52,6 +57,7 @@ function auth (state = INITIAL_STATE.auth, action) {
             return {...state, loading: true}
         case LOGIN_USER_SUCCESS:
         case SIGNUP_USER_SUCCESS:
+            window.location.href = '/'
             return {...state, loading: false}
         case CHANGE_AUTH_FORM:
             return {...state, currentForm: action.payload}
@@ -95,9 +101,15 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
 
 // }
 
-// function userTemplates () {
-
-// }
+function userTemplates (state = INITIAL_STATE.userTemplates, action) {
+    switch (action.type) {
+        case RETRIEVE_USER_TEMPLATES_SUCCESS:
+        console.log('templates: ', action.payload.templates)
+            return action.payload.templates
+        default:
+            return state
+    }
+}
 
 // function searchTemplates () {
 
@@ -114,5 +126,6 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
 export default combineReducers({
     auth,
     currentUser,
-    currentTemplate
+    currentTemplate,
+    userTemplates
 })
