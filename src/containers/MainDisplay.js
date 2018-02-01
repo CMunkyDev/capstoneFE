@@ -37,16 +37,15 @@ const FixedMenu = () => (
 
 const MainPage = ({}) => {
     return (
-        <Grid color='teal' stretched>
-            <Grid.Row color='blue' >
-                <Grid.Column width={16}>
+        <Grid color='teal'>
+            <Grid.Row color='blue'>
+                <Grid.Column width={16} style={{paddingRight: '0px'}}>
                     <FixedMenu />
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row color='blue' style={{height: '5vh'}}/>
-            <Grid.Row color='blue' style={{minHeight: '90vh'}}>
+            <Grid.Row color='blue' style={{minHeight: '95vh'}}>
                 <Grid.Column width={2}/>
-                <Grid.Column width={12} style={{borderRadius: '5px'}}>
+                <Grid.Column width={12}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/create' render={() => <TemplateMaker />} />

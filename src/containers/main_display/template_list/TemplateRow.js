@@ -38,15 +38,15 @@ const TemplateRow = (props) => {
                         </Grid.Column>
                         <MediaQuery minWidth={1223}>
                             <Grid.Column width={8}>
-                                <Button icon positive labelPosition='left' floated='right' style={{ marginRight: '12px' }}>
+                                    <Button icon positive labelPosition='left' floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                     Download
                                 </Button>
-                                <Button icon primary labelPosition='left' floated='right' style={{ marginRight: '12px' }}>
+                                    <Button icon primary labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                     Edit
                                 </Button>
-                                <Button icon negative labelPosition='left' floated='right' style={{ marginRight: '15px' }}>
+                                    <Button icon negative labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                     Delete
                                 </Button>
@@ -54,13 +54,13 @@ const TemplateRow = (props) => {
                         </MediaQuery>
                         <MediaQuery maxWidth={1222}>
                             <Grid.Column width={8}>
-                                <Button icon positive floated='right' style={{ marginRight: '12px' }}>
+                                    <Button icon positive floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
-                                <Button icon primary floated='right' style={{ marginRight: '12px' }}>
+                                    <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
-                                <Button icon negative floated='right' style={{ marginRight: '15px' }}>
+                                    <Button icon negative floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                 </Button>
                             </Grid.Column>
@@ -79,13 +79,13 @@ const TemplateRow = (props) => {
                     <Grid.Row>
                         <MediaQuery minWidth={500}>
                             <Grid.Column style={{ paddingLeft: '15px' }}>
-                                <Button icon positive floated='right' style={{ marginRight: '12px' }}>
+                                <Button icon positive floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
-                                <Button icon primary floated='right' style={{ marginRight: '12px' }}>
+                                    <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
-                                <Button icon negative floated='right' style={{ marginRight: '15px' }}>
+                                    <Button icon negative floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                 </Button>
                             </Grid.Column>
