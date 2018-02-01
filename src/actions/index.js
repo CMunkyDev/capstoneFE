@@ -26,6 +26,14 @@ export const SAVE_TEMPLATE = 'SAVE_TEMPLATE'
 export const SAVE_TEMPLATE_SUCCESS = 'SAVE_TEMPLATE_SUCCESS'
 export const SAVE_TEMPLATE_FAILURE = 'SAVE_TEMPLATE_FAILURE'
 
+export const EDIT_TEMPLATE = 'EDIT_TEMPLATE'
+export const EDIT_TEMPLATE_SUCCESS = 'EDIT_TEMPLATE_SUCCESS'
+export const EDIT_TEMPLATE_FAILURE = 'EDIT_TEMPLATE_FAILURE'
+
+export const DELETE_TEMPLATE = 'DELETE_TEMPLATE'
+export const DELETE_TEMPLATE_SUCCESS = 'DELETE_TEMPLATE_SUCCESS'
+export const DELETE_TEMPLATE_FAILURE = 'DELETE_TEMPLATE_FAILURE'
+
 export const CHANGE_AUTH_FORM = 'CHANGE_AUTH_FORM'
 
 export function signupUser (signupForm) {
@@ -188,7 +196,7 @@ export function deleteTemplate (templateId) {
             })
             .catch(err => {
                 dispatch({
-                    type: DELETE_TEMPLATE_ERROR,
+                    type: DELETE_TEMPLATE_FAILURE,
                     payload: err
                 })
             })
