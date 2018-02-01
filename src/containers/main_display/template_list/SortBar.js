@@ -8,7 +8,6 @@ class SortBar extends Component {
 
         this.state = {
             sortedBy: 'time'
-
         }
     }
 
