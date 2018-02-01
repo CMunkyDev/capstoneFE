@@ -60,7 +60,7 @@ export function signupUser (signupForm) {
                 type: SIGNUP_USER_FAILURE,
                 payload: err
             })
-            console.log('Error sent in signup failure action payload: ', err)
+            console.log('Error sent in signup-failure action payload: ', err)
         })
     }
 }
@@ -142,16 +142,28 @@ export function logoutUser () {
     }
 }
 
-export function saveTemplate (templateObject, userId = null) {
+export function saveTemplate (templateData) {
     return async (dispatch) => {
-        const res = await request(`/api/templates`, 'POST', templateObject)
-        const json = await res.json()
-
         dispatch({
-            type: SAVE_TEMPLATE_SUCCESS,
-            payload: json
+            type: SAVE_TEMPLATE,
+            payload: templateData.template_object.name
         })
-        return json
+        request(`/api/templates`, 'POST', templateData)
+            .then(res => {
+                return res.json()
+            })
+            .then(json => {
+                dispatch({
+                    type: SAVE_TEMPLATE_SUCCESS,
+                    payload: json
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: SAVE_TEMPLATE_FAILURE,
+                    payload: err
+                })
+            })
     }
 }
 
