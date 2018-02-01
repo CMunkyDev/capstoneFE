@@ -14,7 +14,7 @@ const TemplateRow = (props) => {
     return (
         <Grid.Row style={{color: '#000'}}>
             <Segment attached='top' color='orange' style={{ cursor: 'pointer' }} onClick={() => props.toggleRow(props.template.id)}>
-                <Header floated='left'>
+                <Header size='large' floated='left'>
                     {name}
                 </Header>
                 <Header floated='right' sub>

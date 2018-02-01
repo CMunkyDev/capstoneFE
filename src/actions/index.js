@@ -134,7 +134,7 @@ export function logoutUser () {
     }
 }
 
-export function saveTemplate (templateObject) {
+export function saveTemplate (templateObject, userId = null) {
     return async (dispatch) => {
         const res = await request(`/api/templates`, 'POST', templateObject)
         const json = await res.json()
@@ -144,6 +144,54 @@ export function saveTemplate (templateObject) {
             payload: json
         })
         return json
+    }
+}
+
+export function editTemplate (templateData) {
+    return async (dispatch) => {
+        dispatch({
+            type: EDIT_TEMPLATE
+        })
+        request(`/api/templates/${templateData.id}`, 'PATCH', templateData)
+            .then(res => {
+                return res.json()
+            })
+            .then(json => {
+                dispatch({
+                    type: EDIT_TEMPLATE_SUCCESS,
+                    payload: json
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: EDIT_TEMPLATE_FAILURE,
+                    payload: err
+                })
+            })
+    }
+}
+
+export function deleteTemplate (templateId) {
+    return async (dispatch) => {
+        dispatch({
+            type: DELETE_TEMPLATE
+        })
+        request(`/api/templates/${templateId}`, 'DELETE')
+            .then(res => {
+                return res.json()
+            })
+            .then(json => {
+                dispatch({
+                    type: DELETE_TEMPLATE_SUCCESS,
+                    payload: templateId
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: DELETE_TEMPLATE_ERROR,
+                    payload: err
+                })
+            })
     }
 }
 
