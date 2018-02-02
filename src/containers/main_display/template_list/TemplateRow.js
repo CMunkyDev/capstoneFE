@@ -49,7 +49,7 @@ const TemplateRow = (props) => {
                                     <Icon size='large' name='download' />
                                     Download
                                 </Button>
-                                    <Button icon primary labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`} labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                     Edit
                                 </Button>
@@ -64,7 +64,7 @@ const TemplateRow = (props) => {
                                     <Button icon positive onClick={()=>props.generate(props.template)} floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
-                                    <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
                                     <Button icon negative onClick={() => props.delete(props.template.id)} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
@@ -89,7 +89,7 @@ const TemplateRow = (props) => {
                                 <Button icon positive onClick={()=>props.generate(props.template)} floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
-                                    <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
                                     <Button icon negative onClick={() => props.delete(props.template.id)} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
@@ -102,7 +102,7 @@ const TemplateRow = (props) => {
                                 <Button icon negative onClick={() => props.delete(props.template.id)}>
                                     <Icon size='large' name='trash outline' />
                                 </Button>
-                                <Button icon primary>
+                                <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`}>
                                     <Icon size='large' name='edit' />
                                 </Button>
                                 <Button icon positive onClick={() => props.generate(props.template)}>

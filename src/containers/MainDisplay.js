@@ -57,8 +57,9 @@ const MainPage = ({}) => {
                 <Grid.Column width={12}>
                     <BrowserRouter>
                         <Switch>
-                            <Route path='/create' render={() => <TemplateMaker />} />
-                            <Route path='/user' render={() => <TemplateList />} />
+                            <Route path='/create' component={TemplateMaker} />
+                            <Route path='/edit/:id' component={TemplateMaker} />
+                            <Route path='/user' component={TemplateList} />
                             <Route render={() => <Redirect to='/create' />} />
                         </Switch>
                     </BrowserRouter>

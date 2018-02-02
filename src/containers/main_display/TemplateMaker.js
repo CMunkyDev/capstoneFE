@@ -12,6 +12,8 @@ class TemplateMaker extends Component {
     constructor (props) {
         super(props)
 
+        this.editId = this.props.match.params.id || null
+
         let routes = [
             {
                 name: 'show',
@@ -55,7 +57,7 @@ class TemplateMaker extends Component {
         this.state = {
             page: 0,
             pages: 3,
-            template: (this.props.TemplateData ? this.props.TemplateData : this.emptyTemplate)
+            template: this.emptyTemplate
         }
 
         this.templateFunctions = {
@@ -72,6 +74,15 @@ class TemplateMaker extends Component {
             alterApiName: this.alterApiName.bind(this)
         }
 
+    }
+
+    componentDidMount = async () => {
+        if (this.editId) {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/templates/${this.editId}`)
+            const json = await res.json()
+
+            this.setState(prev => ({ ...prev, template: json.templates }))
+        }
     }
 
     nextPage = () => {

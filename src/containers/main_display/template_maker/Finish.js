@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, Grid, Form, Header, Segment, Button, Icon } from 'semantic-ui-react'
-import { generateTemplate, saveTemplate } from '../../../actions'
+import { generateTemplate, saveTemplate, editTemplate } from '../../../actions'
 
 const Finish = (props) => {
     async function saveAndOrDownload (object) {
@@ -10,6 +10,10 @@ const Finish = (props) => {
             props.saveTemplate(object)
         }
         props.generateTemplate(object)
+    }
+
+    function saveChanges (object) {
+        props.editTemplate(object)
     }
 
     return (
@@ -24,8 +28,8 @@ const Finish = (props) => {
                     </Grid.Column>
                     <Grid.Column width={6}>
                         <Segment>
-                            <Form.Input label='API Name' onChange={e => props.templateFunctions.alterApiName(e.target.value)} placeholder='Give Your API a name!' />
-                            <Button onClick={() => saveAndOrDownload(props.template)}>Download {`${props.template.template_object.name}.zip`}</Button>
+                            <Form.Input label='API Name' onChange={e => props.templateFunctions.alterApiName(e.target.value)} value={props.template.template_object.name} placeholder='Give Your API a name!' />
+                                {window.location.pathname.split(/[\\/]/g).includes('edit') ? <Button onClick={() => saveChanges(props.template)}>Save Changes</Button> : <Button onClick={() => saveAndOrDownload(props.template)}>Download {`${props.template.template_object.name}.zip`}</Button>}
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={4}>
@@ -45,7 +49,7 @@ function mapStateToProps(state) {
     return { currentTemplate: state.currentTemplate, currentUser: state.currentUser }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ generateTemplate, saveTemplate }, dispatch)
+    return bindActionCreators({ generateTemplate, saveTemplate, editTemplate }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Finish)
