@@ -8,7 +8,7 @@ import showdown from 'showdown'
 import { Markup } from 'interweave'
 import MediaQuery from 'react-responsive'
 import ApiDiagram from '../ApiDiagram'
-import { generateTemplate } from '../../../actions'
+import { generateTemplate, deleteTemplate } from '../../../actions'
 let converter = new showdown.Converter()
 converter.setFlavor('github')
 
@@ -53,7 +53,7 @@ const TemplateRow = (props) => {
                                     <Icon size='large' name='edit' />
                                     Edit
                                 </Button>
-                                    <Button icon negative labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon negative onClick={() => props.delete(props.template.id)} labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                     Delete
                                 </Button>
@@ -67,7 +67,7 @@ const TemplateRow = (props) => {
                                     <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
-                                    <Button icon negative floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon negative onClick={() => props.delete(props.template.id)} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                 </Button>
                             </Grid.Column>
@@ -92,21 +92,21 @@ const TemplateRow = (props) => {
                                     <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                 </Button>
-                                    <Button icon negative floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                    <Button icon negative onClick={() => props.delete(props.template.id)} floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='trash outline' />
                                 </Button>
                             </Grid.Column>
                         </MediaQuery>
                         <MediaQuery maxWidth={499}>
                             <Grid.Column textAlign={'center'} style={{marginLeft:'-7px', display:'flex', justifyContent: 'space-around'}}>
-                                <Button icon positive onClick={()=>props.generate(props.template)}>
-                                    <Icon size='large' name='download' />
+                                <Button icon negative onClick={() => props.delete(props.template.id)}>
+                                    <Icon size='large' name='trash outline' />
                                 </Button>
                                 <Button icon primary>
                                     <Icon size='large' name='edit' />
                                 </Button>
-                                <Button icon negative>
-                                    <Icon size='large' name='trash outline' />
+                                <Button icon positive onClick={() => props.generate(props.template)}>
+                                    <Icon size='large' name='download' />
                                 </Button>
                             </Grid.Column>
                         </MediaQuery>
@@ -122,7 +122,7 @@ function mapStateToProps(state) {
     return { userTemplates: state.userTemplates, currentUser: state.currentUser }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ generate: generateTemplate }, dispatch)
+    return bindActionCreators({ generate: generateTemplate, delete: deleteTemplate }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateRow)

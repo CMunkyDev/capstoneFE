@@ -25,6 +25,10 @@ import {
     SAVE_TEMPLATE_SUCCESS,
     SAVE_TEMPLATE_FAILURE,
 
+    DELETE_TEMPLATE,
+    DELETE_TEMPLATE_SUCCESS,
+    DELETE_TEMPLATE_FAILURE,
+
     RETRIEVE_USER_TEMPLATES,
     RETRIEVE_USER_TEMPLATES_SUCCESS,
     RETRIEVE_USER_TEMPLATES_FAILURE,
@@ -96,6 +100,8 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
 
 function userTemplates (state = INITIAL_STATE.userTemplates, action) {
     switch (action.type) {
+        case DELETE_TEMPLATE_SUCCESS:
+            return state.filter(template => template.id !== action.payload)
         case RETRIEVE_USER_TEMPLATES_SUCCESS:
         console.log('templates: ', action.payload.templates)
             return action.payload.templates
