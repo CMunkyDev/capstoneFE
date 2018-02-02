@@ -5,6 +5,7 @@ import { Collapse } from 'react-collapse'
 import showdown from 'showdown'
 import { Markup } from 'interweave'
 import MediaQuery from 'react-responsive'
+import ApiDiagram from '../ApiDiagram'
 let converter = new showdown.Converter()
 converter.setFlavor('github')
 
@@ -25,6 +26,7 @@ const TemplateRow = (props) => {
             </Segment>
             <Collapse style={{width: '100%'}} isOpened={props.expanded} springConfig={{stiffness: 300, damping: 30}}>
                 <Segment attached>
+                    <ApiDiagram apiObject={props.template.template_object}/>
                     <Markup content={converter.makeHtml(props.template.md_description)}/>
                 </Segment>
             </Collapse>

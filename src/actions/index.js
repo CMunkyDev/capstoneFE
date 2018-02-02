@@ -211,16 +211,16 @@ export function deleteTemplate (templateId) {
     }
 }
 
-export function generateTemplate (idOrTemplateObject, name = 'snAPI') {
+export function generateTemplate (templateObject) {
     return async (dispatch) => {
-        const res = await ((typeof parseFloat(idOrTemplateObject) === 'integer') ? (fetch(`${process.env.REACT_APP_API_URL}/api/templates/${idOrTemplateObject}/zip`)) : (request(`/api/templates/zip`, 'POST', idOrTemplateObject)))
+        const res = await request(`/api/templates/zip`, 'POST', templateObject)
         const blob = await res.blob()
 
         dispatch({
             type: GENERATE_TEMPLATE_SUCCESS,
             payload: {
                 zip: blob,
-                name
+                name: templateObject.template_object.name
             }
         })
     }

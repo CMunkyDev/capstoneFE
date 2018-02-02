@@ -86,6 +86,7 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
         case SAVE_TEMPLATE_SUCCESS:
             return action.payload.template_object
         case GENERATE_TEMPLATE_SUCCESS:
+        console.log(action)
             FileSaver.saveAs(action.payload.zip, `${action.payload.name}.zip`)
             return state
         default:
