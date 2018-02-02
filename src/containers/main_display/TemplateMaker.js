@@ -36,8 +36,12 @@ class TemplateMaker extends Component {
         ]
 
         this.emptyTemplate = {
+            public: true,
+            md_description: '',
+            template_object : {
             name: ``,
             resources: []
+            }
         }
         this.emptyResource = {
             name: ``,
@@ -51,7 +55,7 @@ class TemplateMaker extends Component {
         this.state = {
             page: 0,
             pages: 3,
-            template: (this.props.TemplateData ? this.props.TemplateData : this.props.currentTemplate ? {} /*grab from database*/ : this.emptyTemplate)
+            template: (this.props.TemplateData ? this.props.TemplateData : this.emptyTemplate)
         }
 
         this.templateFunctions = {
@@ -110,10 +114,13 @@ class TemplateMaker extends Component {
                 ...prev,
                 template: {
                     ...prev.template,
-                    resources: prev.template.resources.map((resource, index) => {
-                        if (index === resourceIndex) return Object.assign({}, resource, updatedResourceData)
-                        return resource
-                    })
+                    template_object: {
+                        ...prev.template.template_object,
+                        resources: prev.template.template_object.resources.map((resource, index) => {
+                            if (index === resourceIndex) return Object.assign({}, resource, updatedResourceData)
+                            return resource
+                        })
+                    }
                 }
             }
         })
@@ -122,7 +129,7 @@ class TemplateMaker extends Component {
     addResource (resourceObj = this.emptyResource) {
         let newResource = Object.assign({}, this.emptyResource, resourceObj)
         this.setState(prev => {
-            return {...prev, template: {...prev.template, resources: [...prev.template.resources, {...this.emptyResource}]}}
+            return { ...prev, template: { ...prev.template, template_object: { ...prev.template.template_object, resources: [...prev.template.template_object.resources, { ...this.emptyResource }] } }} 
         })
     }
 
@@ -130,10 +137,14 @@ class TemplateMaker extends Component {
         this.setState(prev => {
             return {
                 ...prev,
-                template: { ...prev.template,
-                    resources: prev.template.resources.filter((resource, index) => {
-                        return resourceIndex !== index
-                    })
+                template: {
+                    ...prev.template,
+                    template_object: {
+                        ...prev.template.template_object,
+                        resources: prev.template.template_object.resources.filter((resource, index) => {
+                            return resourceIndex !== index
+                        })
+                    }
                 }
             }
         })
@@ -145,15 +156,20 @@ class TemplateMaker extends Component {
                 ...prev,
                 template: {
                     ...prev.template,
-                    resources: prev.template.resources.map((resource, index) => {
-                        if (index === resourceIndex) {
-                            return { ...resource, routes: resource.routes.map((route, index) => {
-                                if (index === routeIndex) return Object.assign({}, route, updatedRouteData)
-                                return route
-                            }) }
-                        }
-                        return resource
-                    })
+                    template_object: {
+                        ...prev.template.template_object,
+                        resources: prev.template.template_object.resources.map((resource, index) => {
+                            if (index === resourceIndex) {
+                                return {
+                                    ...resource, routes: resource.routes.map((route, index) => {
+                                        if (index === routeIndex) return Object.assign({}, route, updatedRouteData)
+                                        return route
+                                    })
+                                }
+                            }
+                            return resource
+                        })
+                    }
                 }
             }
         })
@@ -164,11 +180,15 @@ class TemplateMaker extends Component {
         this.setState(prev => {
             return {
                 ...prev,
-                template: { ...prev.template,
-                    resources: prev.template.resources.map((resource, index) => {
-                        if (index === resourceIndex) return {...resource, routes: [...resource.routes, newRoute]}
-                        return resource
-                    })
+                template: {
+                    ...prev.template,
+                    template_object: {
+                        ...prev.template.template_object,
+                        resources: prev.template.template_object.resources.map((resource, index) => {
+                            if (index === resourceIndex) return { ...resource, routes: [...resource.routes, newRoute] }
+                            return resource
+                        })
+                    }
                 }
             }
         })
@@ -180,12 +200,15 @@ class TemplateMaker extends Component {
                 ...prev,
                 template: {
                     ...prev.template,
-                    resources: prev.template.resources.map((resource, index) => {
-                        if (index === resourceIndex) {
-                            return { ...resource, routes: resource.routes.filter(route => route.name !== routeName) }
-                        }
-                        return resource
-                    })
+                    template_object: {
+                        ...prev.template.template_object,
+                        resources: prev.template.template_object.resources.map((resource, index) => {
+                            if (index === resourceIndex) {
+                                return { ...resource, routes: resource.routes.filter(route => route.name !== routeName) }
+                            }
+                            return resource
+                        })
+                    }
                 }
             }
         })
@@ -193,27 +216,25 @@ class TemplateMaker extends Component {
 
     alterApiName (newName) {
         this.setState(prev => {
-            return {...prev, template: {...prev.template, name: newName}}
+            return { ...prev, template: { ...prev.template, template_object: { ...prev.template.template_object, name: newName } } }
         })
     }
 
     render () {
         return (
-            <div>
-                <Grid container>
-                    {this.props.currentUser.id ? this.getCurrentPage().component : <NotLoggedIn />}
-                    <Menu secondary widths={3} size='large'>
-                        <Container fluid>
-                            <Menu.Item position='left'>
-                                <Button fluid onClick={this.prevPage}>Previous</Button>
-                            </Menu.Item>
-                            <Menu.Item position='right'>
-                                <Button fluid onClick={this.nextPage}>Next</Button>
-                            </Menu.Item>
-                        </Container>
-                    </Menu>
-                </Grid>
-            </div>
+            <Grid container>
+                {localStorage.getItem('api_dev_token') ? this.getCurrentPage().component : <NotLoggedIn />}
+                <Menu secondary widths={3} size='large'>
+                    <Container fluid>
+                        <Menu.Item position='left'>
+                            <Button fluid onClick={this.prevPage}>Previous</Button>
+                        </Menu.Item>
+                        <Menu.Item position='right'>
+                            <Button fluid onClick={this.nextPage}>Next</Button>
+                        </Menu.Item>
+                    </Container>
+                </Menu>
+            </Grid>
         )
     }
 }

@@ -11,14 +11,16 @@ converter.setFlavor('github')
 const TemplateRow = (props) => {
     if (!props.template) return ''
     let { name, resources } = props.template.template_object
+    if (!resources) return ''
     return (
         <Grid.Row style={{color: '#000'}}>
             <Segment attached='top' color='orange' style={{ cursor: 'pointer' }} onClick={() => props.toggleRow(props.template.id)}>
                 <Header size='large' floated='left'>
                     {name}
                 </Header>
-                <Header floated='right' sub>
-                    {`created ${moment(props.template.created_at).format('M/D/YY h:mm a')}`}
+                <Header floated='right' sub style={{display: 'flex', flexDirection: 'column'}}>
+                    <p>{`created ${moment(props.template.created_at).format('M/D/YY h:mm a')}`}</p>
+                    <p>{`last updated ${moment(props.template.updated_at).format('M/D/YY h:mm a')}`}</p>
                 </Header>
             </Segment>
             <Collapse style={{width: '100%'}} isOpened={props.expanded} springConfig={{stiffness: 300, damping: 30}}>
@@ -33,7 +35,7 @@ const TemplateRow = (props) => {
                         <Grid.Column width={8}>
                             {'Resources:  '}
                             {
-                                props.template.template_object.resources.map((resource, i) => <Label key={i} style={{margin:'2px'}}>{resource.name}</Label>)
+                                resources.map((resource, i) => <Label key={i} style={{margin:'2px'}}>{resource.name}</Label>)
                             }
                         </Grid.Column>
                         <MediaQuery minWidth={1223}>
@@ -72,7 +74,7 @@ const TemplateRow = (props) => {
                         <Grid.Column style={{ paddingLeft: '15px' }}>
                             {'Resources:  '}
                             {
-                                props.template.template_object.resources.map((resource, i) => <Label key={i} style={{ margin: '2px' }}>{resource.name}</Label>)
+                                resources.map((resource, i) => <Label key={i} style={{ margin: '2px' }}>{resource.name}</Label>)
                             }
                         </Grid.Column>
                     </Grid.Row>

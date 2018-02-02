@@ -21,9 +21,9 @@ const BasicApiData = (props) => {
                             </Segment>
                             <Segment attached>
                                 {
-                                    !props.template.resources.length ? 'Add A Resource' :
-                                    props.template.resources.map((resource, index) => {
-                                            return <Form.Input key={index} value={props.template.resources[index].name} onChange={(e) => props.templateFunctions.alterResourceData(index, {name: e.target.value})} placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
+                                    !props.template.template_object.resources.length ? 'Add A Resource' :
+                                    props.template.template_object.resources.map((resource, index) => {
+                                            return <Form.Input key={index} value={props.template.template_object.resources[index].name} onChange={(e) => props.templateFunctions.alterResourceData(index, {name: e.target.value})} placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
                                     })
                                 }
                             </Segment>

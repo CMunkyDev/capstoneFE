@@ -35,7 +35,7 @@ import {
 const INITIAL_STATE = {
     lastView: '/',
     currentUser: {
-        id: 1,
+        id: null,
         username: null,
     },
     userTemplates: [],
@@ -70,8 +70,12 @@ function currentUser (state = INITIAL_STATE.currentUser, action) {
     switch (action.type) {
         case UPDATE_CURRENT_USER_SUCCESS:
         case SIGNUP_USER_SUCCESS:
-        case LOGOUT_USER:
             return action.payload
+        case LOGOUT_USER:
+            return {
+                id: null,
+                username: null
+            }
         default:
             return state
     }
@@ -89,39 +93,17 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
     }
 }
 
-// function searchField () {
-
-// }
-
-// function currentTemplate () {
-
-// }
-
-// function expandedTemplates () {
-
-// }
-
 function userTemplates (state = INITIAL_STATE.userTemplates, action) {
     switch (action.type) {
         case RETRIEVE_USER_TEMPLATES_SUCCESS:
         console.log('templates: ', action.payload.templates)
             return action.payload.templates
+        case LOGOUT_USER:
+            return []
         default:
             return state
     }
 }
-
-// function searchTemplates () {
-
-// }
-
-// function currentTemplateData () {
-
-// }
-
-// function templateMakerData () {
-
-// }
 
 export default combineReducers({
     auth,

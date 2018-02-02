@@ -17,11 +17,9 @@ class TemplateList extends Component {
             expandedTemplates: []
         }
     }
-    componentDidMount () {
-        this.props.updateCurrentUser()
-        if (this.props.currentUser.id){
-            this.props.getUserTemplates(this.props.currentUser.id)
-        }
+
+    componentWillMount () {
+        this.props.updateUser()
     }
 
     toggleRow (templateId) {
@@ -54,7 +52,7 @@ function mapStateToProps(state) {
     return { userTemplates: state.userTemplates, currentUser: state.currentUser }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ updateCurrentUser, getUserTemplates }, dispatch)
+    return bindActionCreators({ updateUser: updateCurrentUser, getTemplates: getUserTemplates }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateList)

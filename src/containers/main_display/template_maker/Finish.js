@@ -5,11 +5,13 @@ import { Container, Grid, Form, Header, Segment, Button, Icon } from 'semantic-u
 import { generateTemplate, saveTemplate } from '../../../actions'
 
 const Finish = (props) => {
-    function saveThenDownload (object) {
-        props.saveTemplate(object).then(template => {
-            props.generateTemplate(template.id, template.template_object.name)
-        })
+    async function saveAndOrDownload (object) {
+        if (props.currentUser.id) {
+            props.saveTemplate(object)
+        }
+        props.generateTemplate(object)
     }
+
     return (
         <Container >
             <Form>
@@ -23,7 +25,7 @@ const Finish = (props) => {
                     <Grid.Column width={6}>
                         <Segment>
                             <Form.Input label='API Name' onChange={e => props.templateFunctions.alterApiName(e.target.value)} placeholder='Give Your API a name!' />
-                            <Button onClick={() => saveThenDownload(props.template)}>Download {`${props.template.name}.zip`}</Button>
+                            <Button onClick={() => saveAndOrDownload(props.template)}>Download {`${props.template.template_object.name}.zip`}</Button>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={4}>
@@ -32,7 +34,6 @@ const Finish = (props) => {
                         </Segment>
                     </Grid.Column>
                     </Grid.Row>
-                    
                 </Grid>
             </Form>
 
@@ -41,7 +42,7 @@ const Finish = (props) => {
 }
 
 function mapStateToProps(state) {
-    return { currentTemplate: state.currentTemplate }
+    return { currentTemplate: state.currentTemplate, currentUser: state.currentUser }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ generateTemplate, saveTemplate }, dispatch)

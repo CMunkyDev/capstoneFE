@@ -163,11 +163,6 @@ class LoginSignupForm extends Component {
 
         return (
             <div className={`${this.props.form}-form`} style={{ backgroundColor: '#d4f4f2', height: '100vh'}}>
-            {/*
-                Heads up! The styles below are necessary for the correct render of this example.
-                You can do same with CSS, the main idea is that all the elements up to the `Grid`
-                below must have a height of 100%.
-                */}
             <style>{`
                     body > div,
                     body > div > div,
@@ -182,7 +177,6 @@ class LoginSignupForm extends Component {
             >
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='teal' textAlign='center'>
-                        {/*<Image src='/logo.png' />*/}
                         {' '}{this.props.form === 'login' ? 'Log-in to your account' : 'Sign-up for an account'}
                     </Header>
                         {this.props.form === 'login' ? this.loginInputs : this.signupInputs}

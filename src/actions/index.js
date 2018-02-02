@@ -75,10 +75,10 @@ export function loginUser (loginForm) {
             .then(json => {
                 const token = json.authorization
                 localStorage.setItem('api_dev_token', token)
-                return updateCurrentUser()
             })
             .then(() => {
                 dispatch({ type: LOGIN_USER_SUCCESS })
+                dispatch(updateCurrentUser())
             })
             .catch(err => {
                 dispatch({
@@ -105,7 +105,6 @@ export function updateCurrentUser () {
                     type: UPDATE_CURRENT_USER_SUCCESS,
                     payload: user
                 })
-
                 return id
             })
             .then(id => dispatch(getUserTemplates(id)))
@@ -129,11 +128,7 @@ export function changeAuthForm (formName = null) {
 export function logoutUser () {
     return async dispatch => {
         dispatch({
-            type: LOGOUT_USER,
-            payload: {
-                id: null,
-                username: null
-            }
+            type: LOGOUT_USER
         })
         await localStorage.setItem('api_dev_token', '')
         dispatch({
@@ -143,6 +138,7 @@ export function logoutUser () {
 }
 
 export function saveTemplate (templateData) {
+    console.log(templateData)
     return async (dispatch) => {
         dispatch({
             type: SAVE_TEMPLATE,
@@ -215,9 +211,9 @@ export function deleteTemplate (templateId) {
     }
 }
 
-export function generateTemplate (id, name = 'server') {
+export function generateTemplate (idOrTemplateObject, name = 'snAPI') {
     return async (dispatch) => {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/templates/${id}/zip`)
+        const res = await ((typeof parseFloat(idOrTemplateObject) === 'integer') ? (fetch(`${process.env.REACT_APP_API_URL}/api/templates/${idOrTemplateObject}/zip`)) : (request(`/api/templates/zip`, 'POST', idOrTemplateObject)))
         const blob = await res.blob()
 
         dispatch({
@@ -228,6 +224,7 @@ export function generateTemplate (id, name = 'server') {
             }
         })
     }
+
 }
 
 export function getUserTemplates (userId) {

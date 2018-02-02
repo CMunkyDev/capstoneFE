@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import TemplateMaker from './main_display/TemplateMaker'
 import TemplateList from './main_display/TemplateList'
+import Direction from './main_display/Direction'
 
 import {
     Button,
@@ -21,11 +22,20 @@ import {
 } from 'semantic-ui-react'
 
 const FixedMenu = () => (
-    <Menu borderless size='large'>
+    <Menu borderless attached size='large'>
         <Container fluid>
+            <Menu.Menu position='left'>
+                <Menu.Item>
+                    <Button as='a' href='/create' positive>Create an API</Button>
+                </Menu.Item>
+                <Menu.Item >
+                    <Button as='a' href='/user' color='yellow'>View My APIs</Button>
+                </Menu.Item>
+            </Menu.Menu>
             <Menu.Menu position='right'>
-                <Menu.Item className='item'>
-                    <Button as='a' href='/login'>Log in</Button>
+                <Menu.Item>
+                    {/* todo: actually check token for validity before rendering button */}
+                    { localStorage.getItem('api_dev_token') ? <Button as='a' href='/' onClick={() => localStorage.setItem('api_dev_token', '')}>Logout</Button> : <Button as='a' href='/login'>Log in</Button> }
                 </Menu.Item>
                 <Menu.Item >
                     <Button as='a' href='/signup' primary>Sign Up</Button>
@@ -43,13 +53,14 @@ const MainPage = ({}) => {
                     <FixedMenu />
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row color='blue' style={{minHeight: '95vh'}}>
+            <Grid.Row color='blue' style={{minHeight: '100%'}}>
                 <Grid.Column width={2}/>
                 <Grid.Column width={12}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/create' render={() => <TemplateMaker />} />
                             <Route path='/user' render={() => <TemplateList />} />
+                            <Route path='/' render={() => <Direction />} />
                         </Switch>
                     </BrowserRouter>
                 </Grid.Column>
