@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom'
 import TemplateMaker from './main_display/TemplateMaker'
 import TemplateList from './main_display/TemplateList'
-import Direction from './main_display/Direction'
 
 import {
     Button,
@@ -60,7 +59,7 @@ const MainPage = ({}) => {
                         <Switch>
                             <Route path='/create' render={() => <TemplateMaker />} />
                             <Route path='/user' render={() => <TemplateList />} />
-                            <Route path='/' render={() => <Direction />} />
+                            <Route render={() => <Redirect to='/create' />} />
                         </Switch>
                     </BrowserRouter>
                 </Grid.Column>
