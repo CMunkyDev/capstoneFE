@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Grid, Segment, Header, Label, Button, Icon } from 'semantic-ui-react'
 import moment from 'moment'
 import { Collapse } from 'react-collapse'
@@ -6,6 +8,7 @@ import showdown from 'showdown'
 import { Markup } from 'interweave'
 import MediaQuery from 'react-responsive'
 import ApiDiagram from '../ApiDiagram'
+import { generateTemplate } from '../../../actions'
 let converter = new showdown.Converter()
 converter.setFlavor('github')
 
@@ -42,7 +45,7 @@ const TemplateRow = (props) => {
                         </Grid.Column>
                         <MediaQuery minWidth={1223}>
                             <Grid.Column width={8}>
-                                    <Button icon positive labelPosition='left' floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
+                                    <Button icon positive onClick={()=>props.generate(props.template)} labelPosition='left' floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                     Download
                                 </Button>
@@ -58,7 +61,7 @@ const TemplateRow = (props) => {
                         </MediaQuery>
                         <MediaQuery maxWidth={1222}>
                             <Grid.Column width={8}>
-                                    <Button icon positive floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
+                                    <Button icon positive onClick={()=>props.generate(props.template)} floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
                                     <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
@@ -83,7 +86,7 @@ const TemplateRow = (props) => {
                     <Grid.Row>
                         <MediaQuery minWidth={500}>
                             <Grid.Column style={{ paddingLeft: '15px' }}>
-                                <Button icon positive floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
+                                <Button icon positive onClick={()=>props.generate(props.template)} floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                 </Button>
                                     <Button icon primary floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
@@ -96,7 +99,7 @@ const TemplateRow = (props) => {
                         </MediaQuery>
                         <MediaQuery maxWidth={499}>
                             <Grid.Column textAlign={'center'} style={{marginLeft:'-7px', display:'flex', justifyContent: 'space-around'}}>
-                                <Button icon positive>
+                                <Button icon positive onClick={()=>props.generate(props.template)}>
                                     <Icon size='large' name='download' />
                                 </Button>
                                 <Button icon primary>
@@ -115,4 +118,11 @@ const TemplateRow = (props) => {
     )
 }
 
-export default TemplateRow
+function mapStateToProps(state) {
+    return { userTemplates: state.userTemplates, currentUser: state.currentUser }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ generate: generateTemplate }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateRow)

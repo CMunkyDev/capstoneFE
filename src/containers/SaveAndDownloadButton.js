@@ -11,6 +11,7 @@ const SaveAndDownloadButton = ({ currentTemplate, generateTemplate, saveTemplate
 function mapStateToProps(state) {
     return { currentTemplate: state.currentTemplate }
 }
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ generateTemplate, saveTemplate }, dispatch)
 }

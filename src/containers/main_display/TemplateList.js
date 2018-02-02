@@ -18,7 +18,7 @@ class TemplateList extends Component {
         }
     }
 
-    componentWillMount () {
+    componentDidMount () {
         this.props.updateUser()
     }
 
