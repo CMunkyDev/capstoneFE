@@ -223,7 +223,7 @@ class TemplateMaker extends Component {
     render () {
         return (
             <Grid container>
-                {localStorage.getItem('api_dev_token') ? this.getCurrentPage().component : <NotLoggedIn />}
+                {this.getCurrentPage().component}
                 <Menu secondary widths={3} size='large'>
                     <Container fluid>
                         <Menu.Item position='left'>
