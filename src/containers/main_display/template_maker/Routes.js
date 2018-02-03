@@ -41,10 +41,8 @@ const BasicApiData = (props) => {
     }
 
     return (
-        <Container >
-            <Form>
                 <Grid container>
-                    <Grid.Column width={12} style={{ paddingRight: '0px' }}>
+                    <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                         <Segment style={{minHeight: '324px', color: '#000'}}>
                             {!props.template.template_object.resources.length ? <Header textAlign='center'>Add Resources to See Route Possibilities</Header>: props.template.template_object.resources.map((resource, resourceIndex) => {
                                 return (
@@ -92,9 +90,6 @@ const BasicApiData = (props) => {
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
-            </Form>
-
-        </Container>
     )
 }
 

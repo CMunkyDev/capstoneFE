@@ -1,15 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, Grid, Form, Header, Segment, Button, Icon} from 'semantic-ui-react'
+import { Container, Grid, Form, Header, Segment, Button, Icon, Input} from 'semantic-ui-react'
 
 const BasicApiData = (props) => {
     console.log(props)
     return (
-        <Container >
-            <Form>
-                <Grid container>
-                    <Grid.Column width={12} style={{ paddingRight: '0px' }}>
+                <Grid container fluid>
+                    <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                         <Segment>
                             <Segment attached='top' clearing>
                                 <Header floated='left' >
@@ -20,16 +18,18 @@ const BasicApiData = (props) => {
                                 </Button>
                             </Segment>
                             <Segment attached style={!props.template.template_object.resources.length ? {minHeight: '227px', color: '#000', display: 'flex', justifyContent: 'space-around', alignContent: 'center'} : {minHeight: '227px'}}>
+                            <Form>
                                 {
                                     !props.template.template_object.resources.length ? 'Add A Resource' :
                                     props.template.template_object.resources.map((resource, index) => {
-                                            return <Form.Input key={index} value={props.template.template_object.resources[index].name} onChange={(e) => props.templateFunctions.alterResourceData(index, {name: e.target.value})} placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
+                                            return <Form.Input fluid key={index} value={props.template.template_object.resources[index].name} onChange={(e) => props.templateFunctions.alterResourceData(index, {name: e.target.value})} placeholder='Resource Name' action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}/>
                                     })
                                 }
+                                </Form>
                             </Segment>
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column className='tips' width={4}>
+                    <Grid.Column className='tips' width={4} style={{paddingRight: '0px'}}>
                     <style>
                     {
                         `.tips > .row {margin-bottom: 17px}`
@@ -49,8 +49,6 @@ const BasicApiData = (props) => {
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
-            </Form>
-        </Container>
     )
 }
 

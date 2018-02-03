@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, Grid, Menu, Button } from 'semantic-ui-react'
-import NotLoggedIn from './template_maker/NotLoggedIn'
 import BasicApiData from './template_maker/BasicApiData'
 import Routes from './template_maker/Routes'
 import Finish from './template_maker/Finish'
@@ -238,7 +237,7 @@ class TemplateMaker extends Component {
         return (
             <div>
             <MediaQuery minWidth={992}>
-                <Grid container>
+                <Grid>
                     {this.getCurrentPage().component}
                 </Grid>
                 <Menu style={{ position: 'absolute', bottom: '-80px', zIndex: '5' }} secondary widths={3} size='large'>
@@ -253,7 +252,7 @@ class TemplateMaker extends Component {
                 </Menu>
             </MediaQuery>
             <MediaQuery maxWidth={991}>
-            <Grid container>
+            <Grid>
                 {this.getCurrentPage().component}
             </Grid>
             <Menu style={{ position: 'absolute', bottom: '-80px', zIndex: '5' }} secondary widths={3} size='large'>
