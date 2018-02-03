@@ -49,7 +49,7 @@ const BasicApiData = (props) => {
                                         let errorBool = !!validation(resource.name)
                                         return (
                                             <Input
-                                                label={{color: errorBool ? 'red' : 'green', content: `${index+1}.`}}
+                                                label={{color: errorBool ? 'red' : 'blue', content: `${index+1}.`}}
                                                 fluid
                                                 key={index}
                                                 value={resource.name}
