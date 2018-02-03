@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom'
 import TemplateMaker from './main_display/TemplateMaker'
 import TemplateList from './main_display/TemplateList'
+import MediaQuery from 'react-responsive'
 
 import {
     Button,
@@ -46,27 +47,71 @@ const FixedMenu = () => (
 
 const MainPage = ({}) => {
     return (
-        <Grid color='teal'>
-            <Grid.Row color='blue'>
-                <Grid.Column width={16} style={{paddingRight: '0px', paddingLeft: '0px'}}>
-                    <FixedMenu />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row color='blue' style={{minHeight: '100%'}}>
-                <Grid.Column width={2}/>
-                <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route path='/create' component={TemplateMaker} />
-                            <Route path='/edit/:id' component={TemplateMaker} />
-                            <Route path='/user' component={TemplateList} />
-                            <Route render={() => <Redirect to='/create' />} />
-                        </Switch>
-                    </BrowserRouter>
-                </Grid.Column>
-                <Grid.Column width={2}/>
-            </Grid.Row >
-            <Grid.Row color='blue'/>
+        <Grid>
+            <MediaQuery minWidth={1080}>
+                <Grid.Row color='blue'>
+                    <Grid.Column width={16} style={{paddingRight: '0px', paddingLeft: '0px'}}>
+                        <FixedMenu />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row color='blue' style={{minHeight: '100%'}}>
+                    <Grid.Column width={2}/>
+                    <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route path='/create' component={TemplateMaker} />
+                                <Route path='/edit/:id' component={TemplateMaker} />
+                                <Route path='/user' component={TemplateList} />
+                                <Route render={() => <Redirect to='/create' />} />
+                            </Switch>
+                        </BrowserRouter>
+                    </Grid.Column>
+                    <Grid.Column width={2}/>
+                </Grid.Row >
+                <Grid.Row color='blue'/>
+            </MediaQuery>
+            <MediaQuery minWidth={992} maxWidth={1079}>
+                <Grid.Row color='blue'>
+                    <Grid.Column width={16} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                        <FixedMenu />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row color='blue' style={{ minHeight: '100%' }}>
+                    <Grid.Column width={1} />
+                    <Grid.Column width={14} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route path='/create' component={TemplateMaker} />
+                                <Route path='/edit/:id' component={TemplateMaker} />
+                                <Route path='/user' component={TemplateList} />
+                                <Route render={() => <Redirect to='/create' />} />
+                            </Switch>
+                        </BrowserRouter>
+                    </Grid.Column>
+                    <Grid.Column width={1} />
+                </Grid.Row >
+                <Grid.Row color='blue' />
+            </MediaQuery>
+            <MediaQuery maxWidth={991}>
+                <Grid.Row color='blue'>
+                    <Grid.Column width={16} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                        <FixedMenu />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row color='blue' style={{ minHeight: '100%' }}>
+                    <Grid.Column width={16} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route path='/create' component={TemplateMaker} />
+                                <Route path='/edit/:id' component={TemplateMaker} />
+                                <Route path='/user' component={TemplateList} />
+                                <Route render={() => <Redirect to='/create' />} />
+                            </Switch>
+                        </BrowserRouter>
+                    </Grid.Column>
+                </Grid.Row >
+                <Grid.Row color='blue' />
+            </MediaQuery>
         </Grid>
     )
 }

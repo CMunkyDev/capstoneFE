@@ -6,6 +6,7 @@ import NotLoggedIn from './template_maker/NotLoggedIn'
 import BasicApiData from './template_maker/BasicApiData'
 import Routes from './template_maker/Routes'
 import Finish from './template_maker/Finish'
+import MediaQuery from 'react-responsive'
 
 
 class TemplateMaker extends Component {
@@ -236,11 +237,27 @@ class TemplateMaker extends Component {
         let lastPageCondition = this.state.page === this.state.pages - 1
         return (
             <div>
+            <MediaQuery minWidth={992}>
+                <Grid container>
+                    {this.getCurrentPage().component}
+                </Grid>
+                <Menu style={{ position: 'absolute', bottom: '-80px', zIndex: '5' }} secondary widths={3} size='large'>
+                    <Container fluid>
+                        <Menu.Item position='left'>
+                            <Button fluid color='yellow' disabled={firstPageCondition} onClick={this.prevPage}>Previous</Button>
+                        </Menu.Item>
+                        <Menu.Item position='right'>
+                            <Button fluid color='yellow' disabled={lastPageCondition} onClick={this.nextPage}>Next</Button>
+                        </Menu.Item>
+                    </Container>
+                </Menu>
+            </MediaQuery>
+            <MediaQuery maxWidth={991}>
             <Grid container>
                 {this.getCurrentPage().component}
             </Grid>
             <Menu style={{ position: 'absolute', bottom: '-80px', zIndex: '5' }} secondary widths={3} size='large'>
-                <Container fluid>
+                <Container fluid style={{paddingLeft: '28px', paddingRight: '42px'}}>
                     <Menu.Item position='left'>
                         <Button fluid color='yellow' disabled={firstPageCondition} onClick={this.prevPage}>Previous</Button>
                     </Menu.Item>
@@ -249,6 +266,7 @@ class TemplateMaker extends Component {
                     </Menu.Item>
                 </Container>
             </Menu>
+            </MediaQuery>
             </div>
         )
     }
