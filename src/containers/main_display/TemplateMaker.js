@@ -232,20 +232,24 @@ class TemplateMaker extends Component {
     }
 
     render () {
+        let firstPageCondition = this.state.page === 0
+        let lastPageCondition = this.state.page === this.state.pages - 1
         return (
+            <div>
             <Grid container>
                 {this.getCurrentPage().component}
-                <Menu secondary widths={3} size='large'>
-                    <Container fluid>
-                        <Menu.Item position='left'>
-                            <Button fluid onClick={this.prevPage}>Previous</Button>
-                        </Menu.Item>
-                        <Menu.Item position='right'>
-                            <Button fluid onClick={this.nextPage}>Next</Button>
-                        </Menu.Item>
-                    </Container>
-                </Menu>
             </Grid>
+            <Menu style={{ position: 'absolute', bottom: '-80px', zIndex: '5' }} secondary widths={3} size='large'>
+                <Container fluid>
+                    <Menu.Item position='left'>
+                        <Button fluid color='yellow' disabled={firstPageCondition} onClick={this.prevPage}>Previous</Button>
+                    </Menu.Item>
+                    <Menu.Item position='right'>
+                        <Button fluid color='yellow' disabled={lastPageCondition} onClick={this.nextPage}>Next</Button>
+                    </Menu.Item>
+                </Container>
+            </Menu>
+            </div>
         )
     }
 }

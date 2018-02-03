@@ -45,8 +45,8 @@ const BasicApiData = (props) => {
             <Form>
                 <Grid container>
                     <Grid.Column width={12}>
-                        <Segment>
-                            {!props.template.template_object.resources.length ? 'Add a Resource' : props.template.template_object.resources.map((resource, resourceIndex) => {
+                        <Segment style={{minHeight: '324px', color: '#000'}}>
+                            {!props.template.template_object.resources.length ? <Header textAlign='center'>Add Resources to See Route Possibilities</Header>: props.template.template_object.resources.map((resource, resourceIndex) => {
                                 return (
                                     <div key={resourceIndex}>
                                         <Segment attached='top' clearing>
@@ -67,7 +67,9 @@ const BasicApiData = (props) => {
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                        Current Hints
+                        <Grid.Row>
+                            <Header style={{color: '#fff'}} content={"Tips 'n' Hints:"} />
+                        </Grid.Row>
                     </Grid.Column>
                 </Grid>
             </Form>

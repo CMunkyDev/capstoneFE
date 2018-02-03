@@ -19,7 +19,7 @@ const BasicApiData = (props) => {
                                     <Icon name='add'/>
                                 </Button>
                             </Segment>
-                            <Segment attached>
+                            <Segment attached style={!props.template.template_object.resources.length ? {minHeight: '227px', color: '#000', display: 'flex', justifyContent: 'space-around', alignContent: 'center'} : {minHeight: '227px'}}>
                                 {
                                     !props.template.template_object.resources.length ? 'Add A Resource' :
                                     props.template.template_object.resources.map((resource, index) => {
@@ -29,8 +29,24 @@ const BasicApiData = (props) => {
                             </Segment>
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column width={4}>
-                        Current Hints
+                    <Grid.Column className='tips' width={4}>
+                    <style>
+                    {
+                        `.tips > .row {margin-bottom: 17px}`
+                    }
+                    </style>
+                        <Grid.Row>
+                            <Header style={{ color: '#fff' }} content={"Tips 'n' Hints:"} />
+                        </Grid.Row>
+                        <Grid.Row>
+                            {`<--- Click here to add a resource to your API. (Don't forget to name it!)`}
+                        </Grid.Row>
+                        <Grid.Row>
+                            {`- You can think of a resource as a thing your api talks with other servers about and what you are storing data regarding.`}
+                        </Grid.Row>
+                        <Grid.Row>
+                            {`- Example: If you are making a forum API, you might want resources for: users, threads, posts, and sections.`}
+                        </Grid.Row>
                     </Grid.Column>
                 </Grid>
             </Form>

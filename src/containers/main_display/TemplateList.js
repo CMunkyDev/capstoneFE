@@ -12,14 +12,16 @@ import { getUserTemplates, updateCurrentUser } from '../../actions'
 class TemplateList extends Component {
     constructor (props) {
         super(props)
-        
+
         this.state = {
+            templates: [],
             expandedTemplates: []
         }
     }
 
-    componentDidMount () {
-        this.props.updateUser()
+    async componentDidMount () {
+        await this.props.updateUser()
+        this.setState(prev => ({...prev, templates: this.props.userTemplates}))
     }
 
     toggleRow (templateId) {
@@ -28,6 +30,11 @@ class TemplateList extends Component {
         } else {
             this.setState(prev => ({ ...prev, expandedTemplates: [...prev.expandedTemplates, templateId] }))
         }
+    }
+
+    sortBy (templateArray, key, direction) {
+        let arr = [...templateArray]
+        arr.sort((a,b) => a-b)
     }
 
     render () {
@@ -39,7 +46,7 @@ class TemplateList extends Component {
                             <SortBar />
                         </Grid.Row>
                         <Grid padded>
-                        {this.props.userTemplates.map((template, i) => <TemplateRow key={i} toggleRow={this.toggleRow.bind(this)}template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
+                        {this.state.templates.map((template, i) => <TemplateRow key={i} toggleRow={this.toggleRow.bind(this)}template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
                         </Grid>
                     </Grid.Column>
                 </Grid.Row>
