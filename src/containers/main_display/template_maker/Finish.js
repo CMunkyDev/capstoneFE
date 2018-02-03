@@ -3,24 +3,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, Grid, Form, Header, Segment, Button, Icon, Label, Popup, Message } from 'semantic-ui-react'
 import { generateTemplate, saveTemplate, editTemplate } from '../../../actions'
+import validation from './validation'
 
 const Finish = (props) => {
-    function nameValidationText(nameString, thingToName = 'API') {
-        let nameErrors = {
-            noName: `Please enter a name for your ${thingToName}.`,
-            invalidCharacters: 'Names may only contain alphanumeric characters, underscores, dashes, and periods.'
-        }
-        let invalidChars = /[^A-z._-]/
-        if (!nameString) return nameErrors.noName
-        if (invalidChars.test(nameString)) return nameErrors.invalidCharacters
-        return ''
-    }
-
-    let validationText = nameValidationText(props.template.template_object.name)
+    let validationText = validation(props.template.template_object.name)
 
     function saveButton () {
         if (window.location.pathname.split(/[\\/]/g).includes('edit')) {
-            return <Button onClick={() => props.editTemplate(props.template)}>Save Changes</Button>
+            return <Button href='/user' onClick={() => props.editTemplate(props.template)}>Save Changes</Button>
         } else if (!props.currentUser.id) {
             return <Popup
                 trigger={<div><Button fluid disabled>Save to Account</Button></div>}
