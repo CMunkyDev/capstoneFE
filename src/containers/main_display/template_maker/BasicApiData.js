@@ -42,7 +42,7 @@ const BasicApiData = (props) => {
                             {`<--- Click here to add a resource to your API. (Don't forget to name it!)`}
                         </Grid.Row>
                         <Grid.Row>
-                            {`- You can think of a resource as a thing your api talks with other servers about and what you are storing data regarding.`}
+                            {`- You can think of a resource as a thing your api talks with other servers about and/or what you are storing data regarding.`}
                         </Grid.Row>
                         <Grid.Row>
                             {`- Example: If you are making a forum API, you might want resources for: users, threads, posts, and sections.`}

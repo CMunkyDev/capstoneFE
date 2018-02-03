@@ -66,9 +66,29 @@ const BasicApiData = (props) => {
                             })}
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column width={4}>
+                    <Grid.Column className='tips' width={4}>
+                        <style>
+                            {
+                                `.tips > .row {margin-bottom: 17px}
+                                .tips > .row > p {margin-bottom: 2px}`
+                            }
+                        </style>
                         <Grid.Row>
-                            <Header style={{color: '#fff'}} content={"Tips 'n' Hints:"} />
+                            <Header style={{ color: '#fff' }} content={"Tips 'n' Hints:"} />
+                        </Grid.Row>
+                        <Grid.Row>
+                            <p>{`All routes are selected to start. Please deselect any you do not want`}</p>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <p>{`- Routes are how you communicate with your API.`}</p>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <p>{`They Allow You To:`}</p>
+                            <p>{`- Get All: Retrieve all resources in a collection`}</p>
+                            <p>{`- Get One: Retrieve a single resource`}</p>
+                            <p>{`- Create: Add a new resource to its respective collection`}</p>
+                            <p>{`- Update: Alter an existing resource`}</p>
+                            <p>{`- Delete: Remove a resource from its collection`}</p>
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
