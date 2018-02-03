@@ -9,7 +9,7 @@ const BasicApiData = (props) => {
         <Container >
             <Form>
                 <Grid container>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={12} style={{ paddingRight: '0px' }}>
                         <Segment>
                             <Segment attached='top' clearing>
                                 <Header floated='left' >
@@ -39,7 +39,7 @@ const BasicApiData = (props) => {
                             <Header style={{ color: '#fff' }} content={"Tips 'n' Hints:"} />
                         </Grid.Row>
                         <Grid.Row>
-                            {`<--- Click here to add a resource to your API. (Don't forget to name it!)`}
+                            {`<--- Click the plus(+) to add a resource to your API. (Don't forget to name it!)`}
                         </Grid.Row>
                         <Grid.Row>
                             {`- You can think of a resource as a thing your api talks with other servers about and/or what you are storing data regarding.`}

@@ -44,7 +44,7 @@ const BasicApiData = (props) => {
         <Container >
             <Form>
                 <Grid container>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={12} style={{ paddingRight: '0px' }}>
                         <Segment style={{minHeight: '324px', color: '#000'}}>
                             {!props.template.template_object.resources.length ? <Header textAlign='center'>Add Resources to See Route Possibilities</Header>: props.template.template_object.resources.map((resource, resourceIndex) => {
                                 return (
@@ -66,7 +66,7 @@ const BasicApiData = (props) => {
                             })}
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column className='tips' width={4}>
+                    <Grid.Column className='tips' width={4} style={{paddingRight: '0px'}}>
                         <style>
                             {
                                 `.tips > .row {margin-bottom: 17px}
@@ -77,12 +77,12 @@ const BasicApiData = (props) => {
                             <Header style={{ color: '#fff' }} content={"Tips 'n' Hints:"} />
                         </Grid.Row>
                         <Grid.Row>
-                            <p>{`All routes are selected to start. Please deselect any you do not want`}</p>
+                            <p><em style={{ textDecoration: 'underline', fontSize: '1.2em' }}>{`All routes are selected to start.`}</em>{` Please deselect any you do not want`}</p>
                         </Grid.Row>
                         <Grid.Row>
                             <p>{`- Routes are how you communicate with your API.`}</p>
                         </Grid.Row>
-                        <Grid.Row>
+                        <Grid.Row style={{overflow: 'visible'}}>
                             <p>{`They Allow You To:`}</p>
                             <p>{`- Get All: Retrieve all resources in a collection`}</p>
                             <p>{`- Get One: Retrieve a single resource`}</p>

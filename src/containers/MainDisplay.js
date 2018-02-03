@@ -48,13 +48,13 @@ const MainPage = ({}) => {
     return (
         <Grid color='teal'>
             <Grid.Row color='blue'>
-                <Grid.Column width={16} style={{paddingRight: '0px'}}>
+                <Grid.Column width={16} style={{paddingRight: '0px', paddingLeft: '0px'}}>
                     <FixedMenu />
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row color='blue' style={{minHeight: '100%'}}>
                 <Grid.Column width={2}/>
-                <Grid.Column width={12}>
+                <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/create' component={TemplateMaker} />

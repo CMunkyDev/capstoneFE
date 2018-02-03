@@ -17,11 +17,11 @@ const Finish = (props) => {
     }
 
     return (
-        <Container >
+        <Container style={{ paddingRight: '0px' }}>
             <Form>
                 <Grid container>
                     <Grid.Row>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={5}>
                         <Segment>
                             {/* Insert API Viewer Here */}
                         </Segment>
@@ -32,7 +32,7 @@ const Finish = (props) => {
                                 {window.location.pathname.split(/[\\/]/g).includes('edit') ? <Button onClick={() => saveChanges(props.template)}>Save Changes</Button> : <Button onClick={() => saveAndOrDownload(props.template)}>Download {`${props.template.template_object.name}.zip`}</Button>}
                         </Segment>
                     </Grid.Column>
-                    <Grid.Column width={4}>
+                    <Grid.Column width={5} style={{paddingRight: '0px'}}>
                         <Segment>
                             Notes
                         </Segment>
