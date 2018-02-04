@@ -48,7 +48,7 @@ const FixedMenu = () => (
 const MainPage = ({}) => {
     return (
         <Grid>
-            <MediaQuery minWidth={1080}>
+            <MediaQuery minWidth={0}>
                 <Grid.Row color='blue'>
                     <Grid.Column width={16} style={{paddingRight: '0px', paddingLeft: '0px'}}>
                         <FixedMenu />
@@ -70,7 +70,7 @@ const MainPage = ({}) => {
                 </Grid.Row >
                 <Grid.Row color='blue'/>
             </MediaQuery>
-            <MediaQuery minWidth={992} maxWidth={1079}>
+            {/* <MediaQuery minWidth={992} maxWidth={1079}>
                 <Grid.Row color='blue'>
                     <Grid.Column width={16} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                         <FixedMenu />
@@ -111,7 +111,7 @@ const MainPage = ({}) => {
                     </Grid.Column>
                 </Grid.Row >
                 <Grid.Row color='blue' />
-            </MediaQuery>
+            </MediaQuery> */}
         </Grid>
     )
 }

@@ -5,7 +5,15 @@ import { Container, Grid, Form, Header, Segment, Button, Icon, Input, Popup, Lab
 import validation from './validation'
 
 const BasicApiData = (props) => {
+    console.log(props)
     const issueIndexArray = []
+
+    if (issueIndexArray.length) {
+        props.templateFunctions.containsErrors(true)
+    } else {
+        props.templateFunctions.containsErrors(false)
+    }
+
     function resourceIssueIdentifyingString (indexArray) {
         let indexString
         let resourceString = 'Resource'
@@ -57,7 +65,7 @@ const BasicApiData = (props) => {
                                                 placeholder='Resource Name'
                                                 action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}
                                                 style={{ marginBottom: '14px' }}
-                                                error={errorBool ? issueIndexArray.push(index+1) : false}
+                                                error={errorBool ? !!issueIndexArray.push(index+1) : false}
                                             />
                                         )
                                     })

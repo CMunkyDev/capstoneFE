@@ -57,7 +57,8 @@ class TemplateMaker extends Component {
         this.state = {
             page: 0,
             pages: 3,
-            template: this.emptyTemplate
+            template: this.emptyTemplate,
+            currentPageErrors: false
         }
 
         this.templateFunctions = {
@@ -71,7 +72,8 @@ class TemplateMaker extends Component {
             maxPageNum: this.maxPageNum.bind(this),
             alterResourceData: this.alterResourceData.bind(this),
             alterRouteData: this.alterRouteData.bind(this),
-            alterApiName: this.alterApiName.bind(this)
+            alterApiName: this.alterApiName.bind(this),
+            containsErrors: this.containsErrors.bind(this)
         }
 
     }
@@ -98,6 +100,13 @@ class TemplateMaker extends Component {
             this.setState(prev => {
                 return {...prev, page:prev.page - 1}
             })
+        }
+    }
+
+    containsErrors = (bool) => {
+        console.log('happening', this.state.currentPageErrors)
+        if (this.state.currentPageErrors !== bool) {
+            this.setState(prev => ({ ...prev, currentPageErrors: bool }))
         }
     }
 
@@ -246,7 +255,7 @@ class TemplateMaker extends Component {
                             <Button fluid color='yellow' disabled={firstPageCondition} onClick={this.prevPage}>Previous</Button>
                         </Menu.Item>
                         <Menu.Item position='right'>
-                            <Button fluid color='yellow' disabled={lastPageCondition} onClick={this.nextPage}>Next</Button>
+                                <Button fluid color='yellow' disabled={lastPageCondition || this.state.currentPageErrors} onClick={this.nextPage}>Next</Button>
                         </Menu.Item>
                     </Container>
                 </Menu>
@@ -261,7 +270,7 @@ class TemplateMaker extends Component {
                         <Button fluid color='yellow' disabled={firstPageCondition} onClick={this.prevPage}>Previous</Button>
                     </Menu.Item>
                     <Menu.Item position='right'>
-                        <Button fluid color='yellow' disabled={lastPageCondition} onClick={this.nextPage}>Next</Button>
+                                <Button fluid color='yellow' disabled={lastPageCondition || this.state.currentPageErrors} onClick={this.nextPage}>Next</Button>
                     </Menu.Item>
                 </Container>
             </Menu>
