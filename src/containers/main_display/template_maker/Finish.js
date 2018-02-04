@@ -36,7 +36,7 @@ const Finish = (props) => {
                     </Grid.Column>
                     <Grid.Column width={6}>
                         <Segment style={{display: 'flex', flexDirection: 'column'}}>
-                            <Form.Input label='API Name' onChange={e => props.templateFunctions.alterApiName(e.target.value)} value={props.template.template_object.name} placeholder='Give Your API a name!' />
+                            <Form.Input autoFocus label='API Name' onChange={e => props.templateFunctions.alterApiName(e.target.value)} value={props.template.template_object.name} placeholder='Give Your API a name!' />
                                 {saveButton()}
                                 <Button disabled={!!validationText} style={{marginRight: '0px', marginTop: '14px'}}onClick={() => props.generateTemplate(props.template)}>Download {`${props.template.template_object.name}.zip`}</Button>
                         </Segment>

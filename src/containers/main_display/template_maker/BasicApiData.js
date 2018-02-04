@@ -77,13 +77,14 @@ const BasicApiData = (props) => {
                                         let errorBool = !!validation(resource.name)
                                         return (
                                             <Input
+                                                autoFocus={index == 0}
                                                 label={{ color: errorBool ? 'red' : issueIndexArray.includes(index + 1) ? 'yellow' : 'blue', content: `${index+1}.`}}
                                                 fluid
                                                 key={index}
                                                 value={resource.name}
                                                 onChange={(e) => props.templateFunctions.alterResourceData(index, { name: e.target.value })}
                                                 placeholder='Resource Name'
-                                                action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}
+                                                action={<Button tabIndex={-1} color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}
                                                 style={{ marginBottom: '14px' }}
                                                 error={errorBool || issueIndexArray.includes(index + 1)}
                                             />
