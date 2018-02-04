@@ -14,14 +14,8 @@ class TemplateList extends Component {
         super(props)
 
         this.state = {
-            templates: [],
             expandedTemplates: []
         }
-    }
-
-    async componentDidMount () {
-        await this.props.updateUser()
-        this.setState(prev => ({...prev, templates: this.props.userTemplates}))
     }
 
     toggleRow (templateId) {
@@ -46,7 +40,7 @@ class TemplateList extends Component {
                             <SortBar />
                         </Grid.Row>
                         <Grid padded>
-                        {this.state.templates.map((template, i) => <TemplateRow key={i} toggleRow={this.toggleRow.bind(this)}template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
+                        {this.props.userTemplates.map((template, i) => <TemplateRow key={i} toggleRow={this.toggleRow.bind(this)} template={template} expanded={this.state.expandedTemplates.includes(template.id)}/>)}
                         </Grid>
                     </Grid.Column>
                 </Grid.Row>
