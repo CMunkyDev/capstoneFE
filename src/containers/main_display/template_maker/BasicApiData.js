@@ -3,10 +3,30 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, Grid, Form, Header, Segment, Button, Icon, Input, Popup, Label, Message} from 'semantic-ui-react'
 import validation from './validation'
-
+import _ from 'lodash'
 const BasicApiData = (props) => {
     console.log(props)
-    const issueIndexArray = []
+    let issueIndexArray = []
+    let resourceNameArray = []
+
+    props.template.template_object.resources.forEach((resource, index, array) => {
+        if (validation(resource.name)) {
+            issueIndexArray = [...issueIndexArray, index]
+        }
+        if (resourceNameArray.includes(resource.name)) {
+            let name = resource.name
+            let dupedNameIndices = array.reduce((dupeArr, resource, index) => {
+                if (resource.name === name) {
+                    dupeArr = [...dupeArr, index]
+                }
+                return dupeArr
+            }, [])
+            issueIndexArray = issueIndexArray.concat(dupedNameIndices)
+        }
+        resourceNameArray = [...resourceNameArray, resource.name]
+    })
+
+    issueIndexArray = _.uniq(issueIndexArray).map(i => i + 1).sort((a, b) => a - b)
 
     if (issueIndexArray.length) {
         props.templateFunctions.containsErrors(true)
@@ -57,7 +77,7 @@ const BasicApiData = (props) => {
                                         let errorBool = !!validation(resource.name)
                                         return (
                                             <Input
-                                                label={{color: errorBool ? 'red' : 'blue', content: `${index+1}.`}}
+                                                label={{ color: errorBool ? 'red' : issueIndexArray.includes(index + 1) ? 'yellow' : 'blue', content: `${index+1}.`}}
                                                 fluid
                                                 key={index}
                                                 value={resource.name}
@@ -65,13 +85,10 @@ const BasicApiData = (props) => {
                                                 placeholder='Resource Name'
                                                 action={<Button color='red' onClick={(e) => props.templateFunctions.removeResource(index)}>Remove</Button>}
                                                 style={{ marginBottom: '14px' }}
-                                                error={errorBool ? !!issueIndexArray.push(index+1) : false}
+                                                error={errorBool || issueIndexArray.includes(index + 1)}
                                             />
                                         )
                                     })
-                                    }
-                                    {
-                                        issueIndexArray.length ? props.templateFunctions.containsErrors(true) : props.templateFunctions.containsErrors(false)
                                     }
                                     {issueIndexArray.length ? 
                                     <Message color='yellow'>
@@ -79,11 +96,14 @@ const BasicApiData = (props) => {
                                             {resourceIssueIdentifyingString(issueIndexArray)}
                                         </Message.Header>
                                         <Message.List>
-                                            <Message.Item>
+                                            <Message.Item style={{color: 'red'}}>
                                                 Resources must be named.
                                             </Message.Item>
-                                            <Message.Item>
+                                            <Message.Item style={{ color: 'red' }}>
                                                 Resource names may only contain aplhanumeric characters, dashes, and underscores.
+                                            </Message.Item>
+                                            <Message.Item>
+                                                Resource names must be unique.
                                             </Message.Item>
                                         </Message.List>
                                     </Message>
