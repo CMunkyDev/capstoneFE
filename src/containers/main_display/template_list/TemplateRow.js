@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Segment, Header, Label, Button, Icon } from 'semantic-ui-react'
+import { Grid, Segment, Header, Label, Button, Icon, Popup } from 'semantic-ui-react'
 import moment from 'moment'
 import { Collapse } from 'react-collapse'
 import showdown from 'showdown'
@@ -45,18 +45,25 @@ const TemplateRow = (props) => {
                         </Grid.Column>
                         <MediaQuery minWidth={1223}>
                             <Grid.Column width={8}>
-                                    <Button icon positive onClick={()=>props.generate(props.template)} labelPosition='left' floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
+                                <Button icon positive onClick={()=>props.generate(props.template)} labelPosition='left' floated='right' style={{ marginRight: '15px', marginLeft: '0px' }}>
                                     <Icon size='large' name='download' />
                                     Download
                                 </Button>
-                                    <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`} labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                <Button icon primary onClick={() => window.location.href=`/edit/${props.template.id}`} labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
                                     <Icon size='large' name='edit' />
                                     Edit
                                 </Button>
-                                    <Button icon negative onClick={() => props.delete(props.template.id)} labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
-                                    <Icon size='large' name='trash outline' />
-                                    Delete
-                                </Button>
+                                    <Popup
+                                        trigger={<Button icon negative labelPosition='left' floated='right' style={{ marginRight: '12px', marginLeft: '0px' }}>
+                                            <Icon size='large' name='trash outline' />
+                                            Delete
+                                        </Button>}
+                                        content={<Button onClick={() => props.delete(props.template.id)} color='red' content={`Yes`} onClick={() => props.delete(props.template.id)}  style={{marginRight: '0px'}}/>}
+                                        on='click'
+                                        position='top center'
+                                        header={{content: 'Are You Sure?', style: {textAlign: 'center', marginBottom: '7px'}}}
+                                        style={{textAlign: 'center'}}
+                                    />
                             </Grid.Column>
                         </MediaQuery>
                         <MediaQuery maxWidth={1222}>
