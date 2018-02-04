@@ -104,10 +104,11 @@ class TemplateMaker extends Component {
     }
 
     containsErrors = (bool) => {
-        console.log('happening', this.state.currentPageErrors)
+        console.log('happening', this.state.currentPageErrors, bool)
         if (this.state.currentPageErrors !== bool) {
             this.setState(prev => ({ ...prev, currentPageErrors: bool }))
         }
+        return ''
     }
 
     currentPageNum = () => {

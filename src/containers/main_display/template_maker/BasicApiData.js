@@ -70,6 +70,9 @@ const BasicApiData = (props) => {
                                         )
                                     })
                                     }
+                                    {
+                                        issueIndexArray.length ? props.templateFunctions.containsErrors(true) : props.templateFunctions.containsErrors(false)
+                                    }
                                     {issueIndexArray.length ? 
                                     <Message color='yellow'>
                                         <Message.Header>
