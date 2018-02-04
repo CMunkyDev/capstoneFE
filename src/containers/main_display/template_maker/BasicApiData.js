@@ -96,10 +96,10 @@ const BasicApiData = (props) => {
                                             {resourceIssueIdentifyingString(issueIndexArray)}
                                         </Message.Header>
                                         <Message.List>
-                                            <Message.Item style={{color: 'red'}}>
+                                                <Message.Item style={{ color: '#e15523'}}>
                                                 Resources must be named.
                                             </Message.Item>
-                                            <Message.Item style={{ color: 'red' }}>
+                                                <Message.Item style={{ color: '#e15523' }}>
                                                 Resource names may only contain aplhanumeric characters, dashes, and underscores.
                                             </Message.Item>
                                             <Message.Item>
