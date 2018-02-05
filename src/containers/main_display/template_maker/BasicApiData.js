@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { Container, Grid, Form, Header, Segment, Button, Icon, Input, Popup, Label, Message} from 'semantic-ui-react'
 import validation from './validation'
 import _ from 'lodash'
+import FirstTimeModal from './FirstTimeModal'
+
 const BasicApiData = (props) => {
     console.log(props)
     let issueIndexArray = []
@@ -13,17 +15,17 @@ const BasicApiData = (props) => {
         if (validation(resource.name)) {
             issueIndexArray = [...issueIndexArray, index]
         }
-        if (resourceNameArray.includes(resource.name)) {
+        if (resourceNameArray.includes(resource.name.toLowerCase())) {
             let name = resource.name
             let dupedNameIndices = array.reduce((dupeArr, resource, index) => {
-                if (resource.name === name) {
+                if (resource.name.toLowerCase() === name.toLowerCase()) {
                     dupeArr = [...dupeArr, index]
                 }
                 return dupeArr
             }, [])
             issueIndexArray = issueIndexArray.concat(dupedNameIndices)
         }
-        resourceNameArray = [...resourceNameArray, resource.name]
+        resourceNameArray = [...resourceNameArray, resource.name.toLowerCase()]
     })
 
     issueIndexArray = _.uniq(issueIndexArray).map(i => i + 1).sort((a, b) => a - b)
@@ -57,6 +59,7 @@ const BasicApiData = (props) => {
     }
 
     return (
+            <div>
                 <Grid container fluid>
                     <Grid.Column width={12} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                         <Segment>
@@ -101,10 +104,10 @@ const BasicApiData = (props) => {
                                                 Resources must be named.
                                             </Message.Item>
                                                 <Message.Item style={{ color: '#e15523' }}>
-                                                Resource names may only contain aplhanumeric characters, dashes, and underscores.
+                                                Resource names may only contain alphanumeric characters, dashes, and underscores.
                                             </Message.Item>
                                             <Message.Item>
-                                                Resource names must be unique.
+                                                Resource names must be unique. (This is case-insensitive)
                                             </Message.Item>
                                         </Message.List>
                                     </Message>
@@ -135,6 +138,8 @@ const BasicApiData = (props) => {
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>
+            <FirstTimeModal />
+        </div>
     )
 }
 
