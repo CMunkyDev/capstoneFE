@@ -21,7 +21,7 @@ const Finish = (props) => {
         } else if (validationText) {
             return <Button disabled>Save to Account</Button>
         } else {
-            return <Button href='/user' onClick={() => props.saveTemplate(props.template)}>Save to Account</Button>
+            return <Button onClick={() => props.saveTemplate(props.template)}>Save to Account</Button>
         }
     }
 
