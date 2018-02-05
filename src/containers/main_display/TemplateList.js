@@ -72,6 +72,8 @@ class TemplateList extends Component {
         console.log(this.props.userTemplates.slice().sort((a,b) => Date.parse(a.template_object.created_at) - Date.parse(b.template_object.created_at)))
 
         return (
+            !this.props.currentUser.id ? <div style={{textAlign: 'center'}}>Please log-in to view your saved APIs</div> :
+                !this.props.userTemplates.length ? <div style={{ textAlign: 'center' }}>Get started by <a href='/create' style={{ textDecoration: 'underline', color: '#fff'}}>creating an API</a> to save!</div> :
             <Grid container>
                 <Grid.Row>
                     <Grid.Column width={16}>

@@ -21,16 +21,19 @@ import {
     Step,
 } from 'semantic-ui-react'
 
-const FixedMenu = () => (
+const FixedMenu = ({props}) => (
     <Menu borderless attached size='large'>
         <Container fluid>
             <Menu.Menu position='left'>
                 <Menu.Item>
                     <Button as='a' href='/create' positive>Create an API</Button>
                 </Menu.Item>
+                {
+                !props.currentUser.id ? '' :
                 <Menu.Item >
                     <Button as='a' href='/user' color='yellow'>View My APIs</Button>
                 </Menu.Item>
+                }
             </Menu.Menu>
             <Menu.Menu position='right'>
                 <Menu.Item>
@@ -45,13 +48,13 @@ const FixedMenu = () => (
     </Menu>
 )
 
-const MainPage = ({}) => {
+const MainPage = (props) => {
     return (
         <Grid>
             <MediaQuery minWidth={0}>
                 <Grid.Row color='blue'>
                     <Grid.Column width={16} style={{paddingRight: '0px', paddingLeft: '0px'}}>
-                        <FixedMenu />
+                        <FixedMenu props={props}/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row color='blue' style={{minHeight: '100%'}}>
@@ -117,7 +120,7 @@ const MainPage = ({}) => {
 }
 
 function mapStateToProps(state) {
-    return {  }
+    return { currentUser: state.currentUser }
 }
 
 function mapDispatchToProps(dispatch) {

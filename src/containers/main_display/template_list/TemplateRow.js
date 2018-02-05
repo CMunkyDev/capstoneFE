@@ -24,7 +24,6 @@ const TemplateRow = (props) => {
                 </Header>
                 <Header floated='right' sub style={{display: 'flex', flexDirection: 'column'}}>
                     <p>{`created ${moment(props.template.created_at).format('M/D/YY h:mm a')}`}</p>
-                    <p>{`last updated ${moment(props.template.updated_at).format('M/D/YY h:mm a')}`}</p>
                 </Header>
             </Segment>
             <Collapse style={{width: '100%'}} isOpened={props.expanded} springConfig={{stiffness: 300, damping: 30}}>
