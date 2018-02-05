@@ -25,7 +25,7 @@ class FirstTimeModal extends Component {
                         <Modal.Description>
                             <Header>What is snAPI?</Header>
                             <p>snAPI helps you create an <a href='https://en.wikipedia.org/wiki/Application_programming_interface' target='_blank'>API</a> for your next project in a snap!</p>
-                            <p>snAPI will generate a .zip file with a working API server inside of it. The API files get generated based on your input here on snAPI</p>
+                            <p>snAPI will generate a .zip file with a working API server inside of it. The API files get generated based on your input here on snAPI.</p>
                             <p>Requirements:</p>
                             <ul>
                                 <li><a href='https://nodejs.org/en/download/'>Node</a> will be what runs the API server</li>
@@ -38,7 +38,7 @@ class FirstTimeModal extends Component {
                                 <li>Pick your <a href='' target='_blank'>routes</a> for those resources</li>
                                 <li>Name your API</li>
                                 <li>Download your new API, or save it to our database! (You must be logged in to an account to save APIs)</li>
-                                <li>Unzip the downloaded</li>
+                                <li>Unzip the downloaded file</li>
                                 <li>
                                     Navigate to the newly created folder in the terminal and run these commands:
                                     <ol>
