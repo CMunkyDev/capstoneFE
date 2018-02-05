@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Container, Grid, Form, Header, Segment, Button, Icon, Label, Popup, Message } from 'semantic-ui-react'
 import { generateTemplate, saveTemplate, editTemplate } from '../../../actions'
 import validation from './validation'
+import ApiDiagram from '../ApiDiagram'
 
 const Finish = (props) => {
     let validationText = validation(props.template.template_object.name)
@@ -20,7 +21,7 @@ const Finish = (props) => {
         } else if (validationText) {
             return <Button disabled>Save to Account</Button>
         } else {
-            return <Button onClick={() => props.saveTemplate(props.template)}>Save to Account</Button>
+            return <Button href='/user' onClick={() => props.saveTemplate(props.template)}>Save to Account</Button>
         }
     }
 
@@ -30,8 +31,9 @@ const Finish = (props) => {
                 <Grid container>
                     <Grid.Row>
                     <Grid.Column width={5}>
-                        <Segment>
-                            {/* Insert API Viewer Here */}
+                        <Segment style={{overflowY: 'scroll', maxHeight: '251px'}}>
+                            <Header>API Diagram</Header>
+                            <ApiDiagram template={props.template.template_object}/>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={6}>
@@ -42,9 +44,12 @@ const Finish = (props) => {
                         </Segment>
                         {validationText ? <Message color='yellow'>{validationText}</Message> : ''}
                     </Grid.Column>
-                    <Grid.Column width={5} style={{paddingRight: '0px', paddingLeft: '0px'}}>
-                        <Segment>
-                            Notes
+                    <Grid.Column width={5}>
+                        <Segment style={{color: '#000', height: '251px'}}>
+                            <span style={{fontWeight: 'bold'}}>What Now?</span>
+                            <p> </p>
+                            <p><span style={{ fontWeight: 'bold' }}>Save to Account: </span>This will store your API template in our database for you to download, edit, or delete in the future. This action will redirect you to your templates.</p>
+                            <p><span style={{ fontWeight: 'bold' }}>Download .zip File: </span>This will download a .zip file of your API to your download folder for this browser. In the .zip will be a readme that will explain all the details of your freshly made API</p>
                         </Segment>
                     </Grid.Column>
                     </Grid.Row>

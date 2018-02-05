@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, Grid, Menu, Button } from 'semantic-ui-react'
+import { Container, Grid, Menu, Button, Header } from 'semantic-ui-react'
 import BasicApiData from './template_maker/BasicApiData'
 import Routes from './template_maker/Routes'
 import Finish from './template_maker/Finish'
@@ -247,6 +247,13 @@ class TemplateMaker extends Component {
         return (
             <div>
             <MediaQuery minWidth={992}>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column style={{ display: 'flex', justifyContent: 'space-around' }}>
+                            <Header size='huge' style={{ color: '#fff'}}>API Creation</Header>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
                 <Grid>
                     {this.getCurrentPage().component}
                 </Grid>

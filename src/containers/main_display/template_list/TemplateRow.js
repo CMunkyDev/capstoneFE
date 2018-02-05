@@ -7,7 +7,6 @@ import { Collapse } from 'react-collapse'
 import showdown from 'showdown'
 import { Markup } from 'interweave'
 import MediaQuery from 'react-responsive'
-import ApiDiagram from '../ApiDiagram'
 import { generateTemplate, deleteTemplate } from '../../../actions'
 let converter = new showdown.Converter()
 converter.setFlavor('github')
@@ -26,9 +25,9 @@ const TemplateRow = (props) => {
                     <p>{`created ${moment(props.template.created_at).format('M/D/YY h:mm a')}`}</p>
                 </Header>
             </Segment>
-            <Collapse style={{width: '100%'}} isOpened={props.expanded} springConfig={{stiffness: 300, damping: 30}}>
+            {/* after MarkDown Description is added to templateMaker: isOpened={props.expanded} */}
+            <Collapse style={{width: '100%'}} isOpened={false} springConfig={{stiffness: 300, damping: 30}}>
                 <Segment attached>
-                    <ApiDiagram apiObject={props.template.template_object}/>
                     <Markup content={converter.makeHtml(props.template.md_description)}/>
                 </Segment>
             </Collapse>

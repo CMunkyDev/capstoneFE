@@ -35,7 +35,7 @@ class FirstTimeModal extends Component {
                             <p>STEPS:</p>
                             <ol>
                                 <li>Decide on what <a href='http://restful-api-design.readthedocs.io/en/latest/resources.html' target='_blank'>resources</a> you'd like your API to represent.</li>
-                                <li>Pick your <a target='_blank'>routes</a> for those resources</li>
+                                <li>Pick your <a href='' target='_blank'>routes</a> for those resources</li>
                                 <li>Name your API</li>
                                 <li>Download your new API, or save it to our database! (You must be logged in to an account to save APIs)</li>
                                 <li>Unzip the downloaded</li>

@@ -153,6 +153,7 @@ export function saveTemplate (templateData) {
                     type: SAVE_TEMPLATE_SUCCESS,
                     payload: json
                 })
+                dispatch(updateCurrentUser())
             })
             .catch(err => {
                 dispatch({
@@ -235,7 +236,6 @@ export function getUserTemplates (userId) {
                 return res.json()
             })
             .then(json => {
-                console.log(json)
                 dispatch({
                     type: RETRIEVE_USER_TEMPLATES_SUCCESS,
                     payload: json

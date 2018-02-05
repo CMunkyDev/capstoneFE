@@ -19,6 +19,7 @@ import {
     Segment,
     Visibility,
     Step,
+    Popup
 } from 'semantic-ui-react'
 
 const FixedMenu = ({props}) => (
@@ -31,7 +32,11 @@ const FixedMenu = ({props}) => (
                 {
                 !props.currentUser.id ? '' :
                 <Menu.Item >
-                    <Button as='a' href='/user' color='yellow'>View My APIs</Button>
+                            {props.userTemplates.length ? <Button as='a' href='/user' color='yellow'>View My APIs</Button> : <Popup
+                                trigger={<div><Button disabled color='yellow'>View My APIs</Button></div>}
+                                content={'You currently have no APIs to view.'}
+                                position={'bottom center'}
+                            /> }
                 </Menu.Item>
                 }
             </Menu.Menu>
@@ -120,7 +125,7 @@ const MainPage = (props) => {
 }
 
 function mapStateToProps(state) {
-    return { currentUser: state.currentUser }
+    return { currentUser: state.currentUser, userTemplates: state.userTemplates }
 }
 
 function mapDispatchToProps(dispatch) {

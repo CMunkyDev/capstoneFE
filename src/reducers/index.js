@@ -45,7 +45,7 @@ const INITIAL_STATE = {
     userTemplates: [],
     currentTemplate: {
         id: null,
-        name: null
+        name: null,
     },
     auth: {
         currentForm: null,
