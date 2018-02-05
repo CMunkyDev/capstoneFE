@@ -31,7 +31,7 @@ const Finish = (props) => {
                 <Grid container>
                     <Grid.Row>
                     <Grid.Column width={5}>
-                        <Segment style={{overflowY: 'scroll', maxHeight: '251px'}}>
+                            <Segment style={{ overflowY: 'scroll', maxHeight: '400px'}}>
                             <Header>API Diagram</Header>
                             <ApiDiagram template={props.template.template_object}/>
                         </Segment>
@@ -45,7 +45,7 @@ const Finish = (props) => {
                         {validationText ? <Message color='yellow'>{validationText}</Message> : ''}
                     </Grid.Column>
                     <Grid.Column width={5}>
-                        <Segment style={{color: '#000', height: '251px'}}>
+                        <Segment style={{color: '#000', maxHeight: '400px', overflowY: 'scroll'}}>
                             <span style={{fontWeight: 'bold'}}>What Now?</span>
                             <p> </p>
                             <p><span style={{ fontWeight: 'bold' }}>Save to Account: </span>This will store your API template in our database for you to download, edit, or delete in the future. This action will redirect you to your templates.</p>

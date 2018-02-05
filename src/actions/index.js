@@ -48,7 +48,6 @@ export function signupUser (signupForm) {
             let { id, username, email } = json.users
             let user = { id, username }
             let login = { email, password }
-            console.log('login', login)
             dispatch({
                 type: SIGNUP_USER_SUCCESS,
                 payload: user
@@ -74,7 +73,7 @@ export function loginUser (loginForm) {
             })
             .then(json => {
                 const token = json.authorization
-                localStorage.setItem('api_dev_token', token)
+                localStorage.setItem('api_dev_token', token || '')
             })
             .then(() => {
                 dispatch({ type: LOGIN_USER_SUCCESS })
