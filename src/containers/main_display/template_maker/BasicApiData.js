@@ -73,7 +73,7 @@ const BasicApiData = (props) => {
                             </Segment>
                             <Segment attached style={!props.template.template_object.resources.length ? {minHeight: '227px', color: '#000', display: 'flex', justifyContent: 'space-around', alignContent: 'center'} : {minHeight: '227px'}}>
                                 {
-                                    !props.template.template_object.resources.length ? 'Add A Resource' :
+                                !props.template.template_object.resources.length ? <div style={{textAlign: 'center'}}><p>- Add A Resource -</p>{!props.currentUser.id ? <div><p>NOTE: You <span style={{textDecoration: 'underline'}}>must</span> be <a href='/login'>logged in</a> to save any API you create to our database.</p><p> - You can still create and download an API without logging in. -</p></div> : ''}</div> :
                                     <div>
                                     {
                                     props.template.template_object.resources.map((resource, index) => {
@@ -144,7 +144,7 @@ const BasicApiData = (props) => {
 }
 
 function mapStateToProps(state) {
-    return {}
+    return { currentUser: state.currentUser}
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch)

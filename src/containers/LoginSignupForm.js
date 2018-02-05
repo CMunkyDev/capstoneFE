@@ -109,7 +109,7 @@ class LoginSignupForm extends Component {
                     type='password'
                     onChange={this.handleChange()}
                 />
-                <Button disabled={!this.state.login.valid} loading={this.props.auth.loading ? true : false} onClick={this.props.auth.loading ? () => {} : this.loginCallback()}color='teal' fluid size='large'>Login</Button>
+                <Button disabled={!this.state.login.valid} loading={this.props.auth.loading ? true : false} onClick={this.props.auth.loading ? () => {} : this.loginCallback()} color='green' fluid size='large'>Login</Button>
             </Segment>
         </Form>
 
@@ -154,7 +154,7 @@ class LoginSignupForm extends Component {
                     onChange={this.handleChange()}
                 />
 
-                <Button disabled={!this.state.signup.valid} loading={this.props.auth.loading ? true : false} color='teal' fluid size='large' onClick={this.props.auth.loading ? () => {} : this.signupCallback()}>Sign-Up</Button>
+                <Button disabled={!this.state.signup.valid} loading={this.props.auth.loading ? true : false} color='green' fluid size='large' onClick={this.props.auth.loading ? () => {} : this.signupCallback()}>Sign-Up</Button>
             </Segment>
             <Message error={true}>
             {/*Insert Error Messages Here*/}
@@ -162,7 +162,7 @@ class LoginSignupForm extends Component {
         </Form>
 
         return (
-            <div className={`${this.props.form}-form`} style={{ backgroundColor: '#d4f4f2', height: '100vh'}}>
+            <div className={`${this.props.form}-form`} color='blue' style={{ height: '100vh'}}>
             <style>{`
                     body > div,
                     body > div > div,
@@ -176,12 +176,12 @@ class LoginSignupForm extends Component {
                 verticalAlign='middle'
             >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color='teal' textAlign='center'>
+                    <Header as='h2' style={{color: '#fff'}} textAlign='center'>
                         {' '}{this.props.form === 'login' ? 'Log-in to your account' : 'Sign-up for an account'}
                     </Header>
                         {this.props.form === 'login' ? this.loginInputs : this.signupInputs}
                     <Message>
-                            {this.props.form === 'login' ? <div>New to us? <a href='/signup'>Sign Up</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div> : <div>Already have an account? <a href='/login'>Log In</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div>}
+                        {this.props.form === 'login' ? <div>New to snAPI? <a href='/signup'>Sign Up</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div> : <div>Already have an account? <a href='/login'>Log In</a>  or <a href={'#'} onClick={this.props.history.goBack}>Go Back</a></div>}
                     </Message>
                 </Grid.Column>
             </Grid>
