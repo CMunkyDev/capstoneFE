@@ -230,7 +230,7 @@ class LoginSignupForm extends Component {
                 {
                     this.props.auth.signupErr ||
                     this.validationStrings('signup').map(string => {
-                        return `- ${string}`
+                        return <p style={{padding: '0px', marginTop: '5px', marginBottom: '5px'}}>{`- ${string}`}</p>
                     })
                 }
             </Message>
