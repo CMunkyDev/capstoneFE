@@ -69,7 +69,6 @@ class TemplateList extends Component {
 
     render () {
         let visibleTemplates = this.sortBy(this.state.sortBy, this.filterByName(this.state.filterBy, this.props.userTemplates), this.state.direction)
-        console.log(this.props.userTemplates.slice().sort((a,b) => Date.parse(a.template_object.created_at) - Date.parse(b.template_object.created_at)))
 
         return (
             !this.props.currentUser.id ? <div style={{textAlign: 'center'}}>Please log-in to view your saved APIs</div> :

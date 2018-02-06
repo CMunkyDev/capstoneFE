@@ -46,7 +46,7 @@ const FixedMenu = ({props}) => (
                     { localStorage.getItem('api_dev_token') ? <Button as='a' href='/' onClick={() => localStorage.setItem('api_dev_token', '')}>Logout</Button> : <Button as='a' href='/login'>Log in</Button> }
                 </Menu.Item>
                 <Menu.Item >
-                    <Button as='a' href='/signup' primary>Sign Up</Button>
+                    {localStorage.getItem('api_dev_token') ? <Button disabled primary>Sign Up</Button> : <Button as='a' href='/signup' primary>Sign Up</Button>}
                 </Menu.Item>
             </Menu.Menu>
         </Container>

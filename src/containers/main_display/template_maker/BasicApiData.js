@@ -7,7 +7,6 @@ import _ from 'lodash'
 import FirstTimeModal from './FirstTimeModal'
 
 const BasicApiData = (props) => {
-    console.log(props)
     let issueIndexArray = []
     let resourceNameArray = []
 

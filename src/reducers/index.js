@@ -34,6 +34,8 @@ import {
     RETRIEVE_USER_TEMPLATES_FAILURE,
 
     CHANGE_AUTH_FORM,
+
+    CLEAR_AUTH_ERRORS,
 } from '../actions'
 
 const INITIAL_STATE = {
@@ -50,11 +52,12 @@ const INITIAL_STATE = {
     auth: {
         currentForm: null,
         loading: false,
+        signupErr: '',
+        loginErr: ''
     }
 }
 
 function auth (state = INITIAL_STATE.auth, action) {
-    console.log('reducer fired')
     switch (action.type) {
         case SIGNUP_USER:
         case LOGIN_USER:
@@ -63,6 +66,12 @@ function auth (state = INITIAL_STATE.auth, action) {
         case SIGNUP_USER_SUCCESS:
             window.location.href = '/'
             return {...state, loading: false}
+        case LOGIN_USER_FAILURE:
+            return {...state, loading: false, loginErr: action.payload.message}
+        case SIGNUP_USER_FAILURE:
+            return {...state, loading: false, signupErr: action.payload.message}
+        case CLEAR_AUTH_ERRORS:
+            return {...state, signupErr: '', loginErr: ''}
         case CHANGE_AUTH_FORM:
             return {...state, currentForm: action.payload}
         default:
@@ -90,7 +99,6 @@ function currentTemplate (state = INITIAL_STATE.currentTemplate, action) {
         case SAVE_TEMPLATE_SUCCESS:
             return action.payload.template_object
         case GENERATE_TEMPLATE_SUCCESS:
-        console.log(action)
             FileSaver.saveAs(action.payload.zip, `${action.payload.name}.zip`)
             return state
         default:
@@ -103,7 +111,6 @@ function userTemplates (state = INITIAL_STATE.userTemplates, action) {
         case DELETE_TEMPLATE_SUCCESS:
             return state.filter(template => template.id !== action.payload)
         case RETRIEVE_USER_TEMPLATES_SUCCESS:
-        console.log('templates: ', action.payload.templates)
             return action.payload.templates
         case LOGOUT_USER:
             return []

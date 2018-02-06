@@ -36,6 +36,13 @@ export const DELETE_TEMPLATE_FAILURE = 'DELETE_TEMPLATE_FAILURE'
 
 export const CHANGE_AUTH_FORM = 'CHANGE_AUTH_FORM'
 
+export const CLEAR_AUTH_ERRORS = 'CLEAR_AUTH_ERRORS'
+
+export function clearAuth () {
+    return {
+        type: CLEAR_AUTH_ERRORS
+    }
+}
 export function signupUser (signupForm) {
     const { password } = signupForm
     return (dispatch) => {
@@ -45,6 +52,7 @@ export function signupUser (signupForm) {
             return res.json()
         })
         .then(json => {
+            if (json.message) throw json
             let { id, username, email } = json.users
             let user = { id, username }
             let login = { email, password }
@@ -59,7 +67,6 @@ export function signupUser (signupForm) {
                 type: SIGNUP_USER_FAILURE,
                 payload: err
             })
-            console.log('Error sent in signup-failure action payload: ', err)
         })
     }
 }
@@ -72,6 +79,7 @@ export function loginUser (loginForm) {
                 return res.json()
             })
             .then(json => {
+                if (json.message) throw json
                 const token = json.authorization
                 localStorage.setItem('api_dev_token', token || '')
             })
@@ -84,7 +92,6 @@ export function loginUser (loginForm) {
                     type: LOGIN_USER_FAILURE,
                     payload: err
                 })
-                console.log('Error sent in login failure action payload: ', err)
             })
     }
 }
@@ -112,7 +119,6 @@ export function updateCurrentUser () {
                     type: UPDATE_CURRENT_USER_FAILURE,
                     payload: err
                 })
-                console.log('Error sent in update current user failure action payload: ', err)
             })
     }
 }
@@ -137,7 +143,6 @@ export function logoutUser () {
 }
 
 export function saveTemplate (templateData) {
-    console.log(templateData)
     return async (dispatch) => {
         dispatch({
             type: SAVE_TEMPLATE,
