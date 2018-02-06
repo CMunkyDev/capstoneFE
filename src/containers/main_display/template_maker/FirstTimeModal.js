@@ -24,7 +24,7 @@ class FirstTimeModal extends Component {
                     <Modal.Content>
                         <Modal.Description>
                             <Header>What is snAPI?</Header>
-                            <p>snAPI helps you create an <a href='https://en.wikipedia.org/wiki/Application_programming_interface' target='_blank'>API</a> for your next project in a snap!</p>
+                            <p>snAPI helps you create an <a href='https://en.wikipedia.org/wiki/Application_programming_interface' target='_blank' rel="noopener noreferrer">API</a> for your next project in a snap!</p>
                             <p>snAPI will generate a .zip file with a working API server inside of it. The API files get generated based on your input here on snAPI.</p>
                             <p>Requirements:</p>
                             <ul>
@@ -34,8 +34,8 @@ class FirstTimeModal extends Component {
                             </ul>
                             <p>STEPS:</p>
                             <ol>
-                                <li>Decide on what <a href='http://restful-api-design.readthedocs.io/en/latest/resources.html' target='_blank'>resources</a> you'd like your API to represent.</li>
-                                <li>Pick your <a href='' target='_blank'>routes</a> for those resources</li>
+                                <li>Decide on what <a href='http://restful-api-design.readthedocs.io/en/latest/resources.html' target='_blank' rel="noopener noreferrer">resources</a> you'd like your API to represent.</li>
+                                <li>Pick your <a href='' target='_blank' rel="noopener noreferrer">routes</a> for those resources</li>
                                 <li>Name your API</li>
                                 <li>Download your new API, or save it to our database! (You must be logged in to an account to save APIs)</li>
                                 <li>Unzip the downloaded file</li>
