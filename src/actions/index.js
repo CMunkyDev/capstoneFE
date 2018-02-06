@@ -57,10 +57,6 @@ export function signupUser (signupForm) {
             let user = { id, username }
             let login = { email, password }
             dispatch(loginUser(login))
-            // dispatch({
-            //     type: SIGNUP_USER_SUCCESS,
-            //     payload: user
-            // })
         })
         .catch(err => {
             dispatch({

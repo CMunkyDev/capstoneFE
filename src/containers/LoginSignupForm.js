@@ -150,7 +150,8 @@ class LoginSignupForm extends Component {
 
     render () {
         if (!this.props.form) return ''
-        this.loginInputs = <Form size='large' id='login'>
+        console.log(this.props)
+        this.loginInputs = <Form size='large' id='login' error={!this.state.login.valid}>
             <Segment stacked>
                 <Form.Input
                     fluid
@@ -171,6 +172,11 @@ class LoginSignupForm extends Component {
                 />
                 <Button disabled={!this.state.login.valid} loading={this.props.auth.loading ? true : false} onClick={this.props.auth.loading ? () => {} : this.loginCallback()} color='green' fluid size='large'>Login</Button>
             </Segment>
+            <Message hidden={this.state.signup.valid} color='red' style={{ fontSize: '1rem' }} error={!this.state.signup.valid}>
+                {
+                    this.props.auth.loginErr
+                }
+            </Message>
         </Form>
 
     this.signupInputs = <Form error={!this.state.signup.valid} size='large' id='signup'>
