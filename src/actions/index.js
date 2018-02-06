@@ -56,11 +56,11 @@ export function signupUser (signupForm) {
             let { id, username, email } = json.users
             let user = { id, username }
             let login = { email, password }
-            dispatch({
-                type: SIGNUP_USER_SUCCESS,
-                payload: user
-            })
             dispatch(loginUser(login))
+            // dispatch({
+            //     type: SIGNUP_USER_SUCCESS,
+            //     payload: user
+            // })
         })
         .catch(err => {
             dispatch({
@@ -104,6 +104,7 @@ export function updateCurrentUser () {
                 return res.json()
             })
             .then(json => {
+                if (json.message) throw json.message
                 const { id, username } = json.currentUser
                 const user = { id, username }
 
@@ -235,7 +236,7 @@ export function generateTemplate (templateObject) {
 export function getUserTemplates (userId) {
     return async (dispatch) => {
         dispatch({ type: RETRIEVE_USER_TEMPLATES })
-        if (userId === null) return dispatch({
+        if (!userId) return dispatch({
             type: RETRIEVE_USER_TEMPLATES_SUCCESS,
             payload: []
         })
