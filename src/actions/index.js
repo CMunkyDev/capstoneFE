@@ -235,6 +235,10 @@ export function generateTemplate (templateObject) {
 export function getUserTemplates (userId) {
     return async (dispatch) => {
         dispatch({ type: RETRIEVE_USER_TEMPLATES })
+        if (userId === null) return dispatch({
+            type: RETRIEVE_USER_TEMPLATES_SUCCESS,
+            payload: []
+        })
         return request(`/api/users/${userId}/templates`)
             .then(res => {
                 return res.json()
