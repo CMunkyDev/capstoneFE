@@ -5,7 +5,7 @@ import { Grid, Segment, Header, Label, Button, Icon, Popup } from 'semantic-ui-r
 import moment from 'moment'
 import { Collapse } from 'react-collapse'
 import showdown from 'showdown'
-import { Markup } from 'interweave'
+import Markup from 'interweave'
 import MediaQuery from 'react-responsive'
 import { generateTemplate, deleteTemplate } from '../../../actions'
 let converter = new showdown.Converter()
@@ -26,7 +26,7 @@ const TemplateRow = (props) => {
                 </Header>
             </Segment>
             {/* after MarkDown Description is added to templateMaker: isOpened={props.expanded} */}
-            <Collapse style={{width: '100%'}} isOpened={false} springConfig={{stiffness: 300, damping: 30}}>
+            <Collapse style={{width: '100%'}} isOpened={false}>
                 <Segment attached>
                     <Markup content={converter.makeHtml(props.template.md_description)}/>
                 </Segment>
